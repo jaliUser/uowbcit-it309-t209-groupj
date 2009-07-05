@@ -1,6 +1,6 @@
 package it309.rms.view;
 
-import String;
+//import String;
 
 public abstract class AbstractBaseView {
 
