@@ -1,6 +1,6 @@
 package it309.rms.view;
 
-import String;
+//import String;
 import it309.rms.presenter.ChangePasswordPresenter;
 
 public class ChangePasswordView extends AbstractBaseView {
