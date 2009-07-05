@@ -1,7 +1,7 @@
 package it309.rms.view;
 
 import it309.rms.presenter.ResourceListPresenter;
-import String;
+//import String;
 
 public class ResourceListView extends AbstractBaseView {
 

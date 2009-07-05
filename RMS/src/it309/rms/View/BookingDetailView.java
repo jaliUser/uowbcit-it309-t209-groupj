@@ -1,7 +1,7 @@
 package it309.rms.view;
 
 import it309.rms.presenter.BookingDetailPresenter;
-import String;
+//import String;
 
 public class BookingDetailView extends AbstractBaseView {
 
@@ -48,7 +48,7 @@ public class BookingDetailView extends AbstractBaseView {
   return null;
   }
 
-  public void SetDescription(void String) {
+  public void SetDescription(String description) {
   }
 
   public void SetPurpose(String purpose) {
