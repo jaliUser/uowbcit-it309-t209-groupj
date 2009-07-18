@@ -1,12 +1,12 @@
 package it309.rms.dataclass;
 
-import java.io.Serializable;
+import java.io.Serializable; 
 
 public class ResultInfo  implements Cloneable, Serializable{
   /* {src_lang=Java}*/
     private Boolean result = true;
 
-    private String message;
+    private String message  = "";
 
     private int errorType = 2;
 

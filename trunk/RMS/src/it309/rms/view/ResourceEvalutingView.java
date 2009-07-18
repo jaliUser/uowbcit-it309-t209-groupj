@@ -11,15 +11,31 @@
 
 package it309.rms.view;
 
+import it309.rms.controller.ResourceEvaluatingController;
+import it309.rms.dataclass.DataConstant;
+import javax.swing.JTextField;
+
 /**
  *
  * @author khangdt
  */
 public class ResourceEvalutingView extends BaseView {
     
+    ResourceEvaluatingController controller;
+
     /** Creates new form BookingView */
     public ResourceEvalutingView() {
         initComponents();
+        controller = new ResourceEvaluatingController(this);
+        controller.init();
+    }
+
+    public ResourceEvalutingView(String resourceId, BaseView preView) {
+        initComponents();
+        setTxtResourceId(resourceId);
+        controller = new ResourceEvaluatingController(this);
+        controller.setPreView(preView);
+        controller.init();
     }
     
     /** This method is called from within the constructor to
@@ -36,27 +52,33 @@ public class ResourceEvalutingView extends BaseView {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtResourceId = new javax.swing.JTextField();
+        txtResourceType = new javax.swing.JTextField();
+        txtResourceTitle = new javax.swing.JTextField();
+        txtDescription = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtPurpose = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
+        txtReturnDate = new javax.swing.JTextField();
+        txtRequestingDate = new javax.swing.JTextField();
+        txtEnteredDate = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtEmployeeId = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        btnReset = new javax.swing.JButton();
-        jTextField9 = new javax.swing.JTextField();
+        btnSubmit = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtComment = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        cboStatus = new javax.swing.JComboBox();
+        jLabel12 = new javax.swing.JLabel();
+        txtLastEvaluation = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        txtEvaluatorId = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -67,17 +89,17 @@ public class ResourceEvalutingView extends BaseView {
 
         jLabel2.setText("Type");
 
-        jLabel3.setText("Name");
+        jLabel3.setText("Title");
 
         jLabel4.setText("Description");
 
-        jTextField1.setEditable(false);
+        txtResourceId.setEditable(false);
 
-        jTextField2.setEditable(false);
+        txtResourceType.setEditable(false);
 
-        jTextField3.setEditable(false);
+        txtResourceTitle.setEditable(false);
 
-        jTextField4.setEditable(false);
+        txtDescription.setEditable(false);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14));
         jLabel5.setText("Resource detail");
@@ -101,10 +123,10 @@ public class ResourceEvalutingView extends BaseView {
                             .addComponent(jLabel4))
                         .addGap(36, 36, 36)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE))))
+                            .addComponent(txtDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                            .addComponent(txtResourceTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                            .addComponent(txtResourceType, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                            .addComponent(txtResourceId, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -115,19 +137,19 @@ public class ResourceEvalutingView extends BaseView {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtResourceId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtResourceType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtResourceTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -137,17 +159,21 @@ public class ResourceEvalutingView extends BaseView {
 
         jLabel7.setText("Requesting date");
 
-        jTextField5.setEditable(false);
+        txtPurpose.setEditable(false);
 
         jLabel9.setText("Return Date");
 
-        jTextField8.setEditable(false);
+        txtReturnDate.setEditable(false);
 
-        jLabel11.setText("Employee Name");
+        txtRequestingDate.setEditable(false);
 
-        jTextField10.setEditable(false);
+        txtEnteredDate.setEditable(false);
 
-        jTextField11.setEditable(false);
+        jLabel14.setText("Entered date");
+
+        jLabel16.setText("Employee Id");
+
+        txtEmployeeId.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -156,50 +182,81 @@ public class ResourceEvalutingView extends BaseView {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel6)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel11)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE))
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtEnteredDate, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRequestingDate, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPurpose, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEnteredDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRequestingDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPurpose, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setText("Submit");
+        btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
-        btnReset.setText("Reset");
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Status");
 
         jLabel8.setText("Commnet");
+
+        cboStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Functioning", "Damaged", "Booked", "Approved" }));
+
+        jLabel12.setText("Evaluated date");
+
+        txtLastEvaluation.setEditable(false);
+
+        jLabel17.setText("Evaluator Id");
+
+        txtEvaluatorId.setEditable(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -208,19 +265,23 @@ public class ResourceEvalutingView extends BaseView {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel10))
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel12))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEvaluatorId, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLastEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboStatus, 0, 545, Short.MAX_VALUE)
+                            .addComponent(txtComment, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel8)))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addGap(122, 122, 122)
+                        .addComponent(btnSubmit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReset)))
+                        .addComponent(btnBack)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -228,17 +289,25 @@ public class ResourceEvalutingView extends BaseView {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEvaluatorId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
+                    .addComponent(txtLastEvaluation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnReset))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSubmit)
+                    .addComponent(btnBack))
+                .addGap(55, 55, 55))
         );
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14));
@@ -248,13 +317,13 @@ public class ResourceEvalutingView extends BaseView {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -266,19 +335,31 @@ public class ResourceEvalutingView extends BaseView {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        controller.evaluate();
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        controller.back();
+    }//GEN-LAST:event_btnBackActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReset;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSubmit;
+    private javax.swing.JComboBox cboStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -290,16 +371,153 @@ public class ResourceEvalutingView extends BaseView {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField txtComment;
+    private javax.swing.JTextField txtDescription;
+    private javax.swing.JTextField txtEmployeeId;
+    private javax.swing.JTextField txtEnteredDate;
+    private javax.swing.JTextField txtEvaluatorId;
+    private javax.swing.JTextField txtLastEvaluation;
+    private javax.swing.JTextField txtPurpose;
+    private javax.swing.JTextField txtRequestingDate;
+    private javax.swing.JTextField txtResourceId;
+    private javax.swing.JTextField txtResourceTitle;
+    private javax.swing.JTextField txtResourceType;
+    private javax.swing.JTextField txtReturnDate;
     // End of variables declaration//GEN-END:variables
-    
+
+    public String getTxtComment() {
+        return txtComment.getText();
+    }
+
+    public void setTxtComment(String txtComment) {
+        this.txtComment.setText(txtComment);
+    }
+
+    public String getTxtDescription() {
+        return txtDescription.getText();
+    }
+
+    public void setTxtDescription(String txtDescription) {
+        this.txtDescription.setText(txtDescription);
+    }
+/*
+    public String getTxtEmployeeName() {
+        return txtEmployeeName.getText();
+    }
+
+    public void setTxtEmployeeName(String txtEmployeeName) {
+        this.txtEmployeeName.setText(txtEmployeeName);
+    }
+*/
+    public String getTxtPurpose() {
+        return txtPurpose.getText();
+    }
+
+    public void setTxtPurpose(String txtPurpose) {
+        this.txtPurpose.setText(txtPurpose);
+    }
+
+    public String getTxtRequestingDate() {
+        return txtRequestingDate.getText();
+    }
+
+    public void setTxtRequestingDate(String txtRequestingDate) {
+        this.txtRequestingDate.setText(txtRequestingDate);
+    }
+
+    public String getTxtResouceId() {
+        return txtResourceId.getText();
+    }
+
+    public void setTxtResourceId(String txtResourceId) {
+        this.txtResourceId.setText(txtResourceId);
+    }
+
+    public String getTxtResourceTitle() {
+        return txtResourceTitle.getText();
+    }
+
+    public void setTxtResourceTitle(String txtResourceTitle) {
+        this.txtResourceTitle.setText(txtResourceTitle);
+    }
+
+    public String getTxtResourceType() {
+        return txtResourceType.getText();
+    }
+
+    public void setTxtResourceType(String txtResourceType) {
+        this.txtResourceType.setText(txtResourceType);
+    }
+
+    public String getTxtReturnDate() {
+        return txtReturnDate.getText();
+    }
+
+    public void setTxtReturnDate(String txtReturnDate) {
+        this.txtReturnDate.setText(txtReturnDate);
+    }
+
+    public String getCboStatus() {
+        return cboStatus.getSelectedItem().toString();
+    }
+
+    public void setCboStatus(String cboStatus) {
+        this.cboStatus.setSelectedItem(cboStatus);
+    }
+
+    public String getTxtEnteredDate() {
+        return txtEnteredDate.getText();
+    }
+
+    public void setTxtEnteredDate(String txtEnteredDate) {
+        this.txtEnteredDate.setText(txtEnteredDate);
+    }
+
+    public String getTxtLastEvaluation() {
+        return txtLastEvaluation.getText();
+    }
+
+    public void setTxtLastEvaluation(String txtLastEvaluation) {
+        this.txtLastEvaluation.setText(txtLastEvaluation);
+    }
+/*
+    public String getTxtEvaluatorName() {
+        return txtEvaluatorName.getText();
+    }
+
+    public void setTxtEvaluatorName(String txtEvaluatorName) {
+        this.txtEvaluatorName.setText(txtEvaluatorName);
+    }
+*/
+    public String getTxtEmployeeId() {
+        return txtEmployeeId.getText();
+    }
+
+    public void setTxtEmployeeId(String txtEmployeeId) {
+        this.txtEmployeeId.setText(txtEmployeeId);
+    }
+
+    public String getTxtEvaluatorId() {
+        return txtEvaluatorId.getText();
+    }
+
+    public void setTxtEvaluatorId(String txtEvaluatorId) {
+        this.txtEvaluatorId.setText(txtEvaluatorId);
+    }
+
+    public void setCboStatusValue(String bookedStatus){
+        cboStatus.removeAllItems();
+        if (bookedStatus.equals(DataConstant.ResourceStatus.BOOKED)){
+            cboStatus.addItem(DataConstant.ResourceStatus.APPROVED);
+            cboStatus.addItem(DataConstant.ResourceStatus.DAMAGED);
+            cboStatus.addItem(DataConstant.ResourceStatus.MAINTAINANCE);
+        }
+        else
+        {
+            cboStatus.addItem(DataConstant.ResourceStatus.DAMAGED);
+            cboStatus.addItem(DataConstant.ResourceStatus.MAINTAINANCE);
+            cboStatus.addItem(DataConstant.ResourceStatus.FUNCTIONING);
+        }
+    }
+
 }

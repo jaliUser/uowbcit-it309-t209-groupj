@@ -11,16 +11,25 @@
 
 package it309.rms.view;
 
+import it309.rms.controller.MyResourcesController;
+import it309.rms.dataclass.ResourceInfo;
+import java.util.Collection;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
  * @author khangdt
  */
 public class MyResourcesView extends BaseView {
-    
+
+    MyResourcesController controller;
+
     /** Creates new form AdminMain */
     public MyResourcesView() {
         initComponents();
+        controller = new MyResourcesController(this);
+        controller.init();
     }
     
     /** This method is called from within the constructor to
@@ -33,24 +42,21 @@ public class MyResourcesView extends BaseView {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblResult = new javax.swing.JTable();
         btnCancelBooking = new javax.swing.JButton();
         btnView = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblResult.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "Type", "Name", "Status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblResult);
 
         btnCancelBooking.setText("Cancel booking");
         btnCancelBooking.addActionListener(new java.awt.event.ActionListener() {
@@ -94,19 +100,52 @@ public class MyResourcesView extends BaseView {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelBookingActionPerformed
-        
+        controller.cancelBooking();
     }//GEN-LAST:event_btnCancelBookingActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-        show(new ResourceView());
+        controller.view();
     }//GEN-LAST:event_btnViewActionPerformed
-    
+
+    public void setTableResources (Collection list){
+
+        DefaultTableModel model = (DefaultTableModel)tblResult.getModel();
+        model.setRowCount(0);
+
+
+		int count;
+
+		//putting search result list into table tblResult
+        ResourceInfo resourceInfo;
+		for(count=0; count < list.size();count++)
+		{
+            resourceInfo = (ResourceInfo)list.toArray()[count];
+            model.addRow(new Object[]{resourceInfo.getResourceId(),
+                                        resourceInfo.getResourceType(),
+                                        resourceInfo.getResourceTitle(),
+                                        resourceInfo.getStatus()});
+		}
+    }
+
+    public String selectedId(){
+
+        int selectedRow = tblResult.getSelectedRow();
+        String selectedId = "";
+
+
+        if (selectedRow >= 0)
+        {
+            selectedId = (String)tblResult.getValueAt(selectedRow, 0);
+        }
+
+        return selectedId;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelBooking;
     private javax.swing.JButton btnView;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblResult;
     // End of variables declaration//GEN-END:variables
     
 }

@@ -11,27 +11,18 @@
 
 package it309.rms.view;
 
+import it309.rms.controller.BaseController;
+import it309.rms.controller.LoginController;
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author khangdt
  */
 public class LoginView extends BaseView {
 
-    public static final int ADMIN_LOGIN = 1;
-    public static final int EMPLOYEE_LOGIN = 0;
 
-    private int loginObject;
-
-    public int getLoginObject() {
-        return loginObject;
-    }
-
-    /** Creates new form LoginView */
-    public LoginView(int loginObject) {
-        this.loginObject = loginObject;
-        initComponents();
-    }
-
+    LoginController loginController;
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -45,15 +36,22 @@ public class LoginView extends BaseView {
         jLabel2 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         btnExit = new javax.swing.JButton();
+        txtPassword = new javax.swing.JPasswordField();
+        txtUserId = new javax.swing.JTextField();
+
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jLabel3.setText("Password");
 
         jLabel2.setText("UserId");
 
         btnLogin.setText("Login");
+        btnLogin.setRequestFocusEnabled(false);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -61,6 +59,7 @@ public class LoginView extends BaseView {
         });
 
         btnBack.setText("Back");
+        btnBack.setRequestFocusEnabled(false);
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -68,9 +67,22 @@ public class LoginView extends BaseView {
         });
 
         btnExit.setText("Exit");
+        btnExit.setRequestFocusEnabled(false);
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
+            }
+        });
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
+
+        txtUserId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
             }
         });
 
@@ -84,16 +96,18 @@ public class LoginView extends BaseView {
                     .addComponent(jLabel3)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLogin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(txtUserId, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
                 .addGap(373, 373, 373))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(309, 309, 309)
+                .addComponent(btnLogin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(439, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,11 +115,11 @@ public class LoginView extends BaseView {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
@@ -114,16 +128,16 @@ public class LoginView extends BaseView {
                 .addContainerGap(71, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public LoginView(int userType) {
+        initComponents();
+        //txtUserId.requestFocus();
+        loginController = new LoginController(this);
+        BaseController.getUserIdInfo().setUserType(userType);
+    }
+    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        switch (loginObject) {
-                case ADMIN_LOGIN:
-                    show(new AdminMainView());
-                    break;
-                case EMPLOYEE_LOGIN:
-                    show(new EmployeeMainView());
-                    break;
-        }
+        loginController.login();
+    
 }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -134,6 +148,13 @@ public class LoginView extends BaseView {
         exit();
     }//GEN-LAST:event_btnExitActionPerformed
 
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            btnLoginActionPerformed(null);
+        }
+    }//GEN-LAST:event_formKeyPressed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -141,8 +162,24 @@ public class LoginView extends BaseView {
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUserId;
     // End of variables declaration//GEN-END:variables
+
+    public String getTxtPassword() {
+        return String.valueOf(txtPassword.getPassword());
+    }
+
+    public void setTxtPassword(String txtPassword) {
+        this.txtPassword.setText(txtPassword);
+    }
+
+    public String getTxtUserId() {
+        return txtUserId.getText();
+    }
+
+    public void setTxtUserId(String txtUserId) {
+        this.txtUserId.setText(txtUserId);
+    }
 
 }

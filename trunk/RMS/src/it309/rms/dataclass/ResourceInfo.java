@@ -5,21 +5,23 @@ import java.sql.Date;
 
 public class ResourceInfo extends ResourceIdInfo implements Cloneable, Serializable{
 
-    private String description;
+    private String description = "";
 
-    private String status;
+    private String status = "";
 
-    private String purpose;
+    private String purpose = "";
 
     private Date date_entered;
 
     private Date date_required;
 
+    private Date date_return;
+
     private UserIdInfo evaluatorIdInfo;
 
     private UserIdInfo authorIdInfo;
 
-    private String comment;
+    private String comment = "";
 
     private Date date_evaluated;
 
@@ -95,12 +97,13 @@ public class ResourceInfo extends ResourceIdInfo implements Cloneable, Serializa
         this.status = status;
     }
 
-    //Resource's status constants
-    public static class Status{
-        public final static String BOOKED = "Booked";
-        public final static String APPROVED = "Approved";
-        public final static String DAMAGED = "Damaged";
-        public final static String MAINTAINANCE = "Under maintenance";
-        public final static String FUNCTIONING = "Functioning";
+    public Date getDate_return() {
+        return date_return;
     }
+
+    public void setDate_return(Date date_return) {
+        this.date_return = date_return;
+    }
+
+
 }

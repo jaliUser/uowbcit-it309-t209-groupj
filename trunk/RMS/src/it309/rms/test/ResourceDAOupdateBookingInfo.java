@@ -6,15 +6,13 @@
 package it309.rms.test;
 
 import it309.rms.dao.ResourceDao;
-import it309.rms.dataclass.ResultInfo;
 import it309.rms.dataclass.ResourceInfo;
-import it309.rms.dataclass.UserIdInfo;
-
+import it309.rms.dataclass.ResultInfo;
 /**
  *
  * @author DucQuang
  */
-public class ResourceDAOupdateResource {
+public class ResourceDAOupdateBookingInfo {
 
     /**
      * @param args the command line arguments
@@ -25,19 +23,18 @@ public class ResourceDAOupdateResource {
         rsi.setResourceType("Reference");
         rsi.setResourceTitle("IT309 – System development & implementation");
         rsi.setStatus("Functioning");
-        rsi.setDescription("Study guide version 2");
-        rsi.setComment("Informatics Edu. Library");
-        rsi.setEvaluatorIdInfo(new UserIdInfo("TestID1", null));
+        rsi.setDescription("Study guide version 1");
         ResourceDao resDao = ResourceDao.getInstance();
+        
         try
         {
-                //to test whether update resource function in Resource DAO works properly
-            ResultInfo ri = resDao.updateResource(rsi);
+                //to test whether book function in Resource DAO works properly
+            ResultInfo ri = resDao.updateBookingInfo(rsi);
             if (ri.getResult())
             {
-                System.out.println("Update resource success : "+rsi.getResourceId());
+                System.out.println("Book resource success : "+rsi.getResourceId());
             } else {
-                System.out.println("Update resource fail ");
+                System.out.println("Book resource fail ");
             }
         }
         catch(Exception ex)

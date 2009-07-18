@@ -40,13 +40,13 @@ public class AdminPasswordChangingView extends BaseView {
 
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtOldPassword = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtConfirmPassword = new javax.swing.JTextField();
-        txtNewPassword = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        txtOldPassword = new javax.swing.JPasswordField();
+        txtNewPassword = new javax.swing.JPasswordField();
+        txtConfirmPassword = new javax.swing.JPasswordField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -89,11 +89,11 @@ public class AdminPasswordChangingView extends BaseView {
                             .addComponent(jLabel5)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtOldPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                            .addComponent(txtConfirmPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                            .addComponent(txtNewPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtConfirmPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addComponent(txtNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addComponent(txtOldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSubmit)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnReset)))))
@@ -106,21 +106,21 @@ public class AdminPasswordChangingView extends BaseView {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReset)
                     .addComponent(btnSubmit))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,7 +132,6 @@ public class AdminPasswordChangingView extends BaseView {
         
 }//GEN-LAST:event_btnResetActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSubmit;
@@ -140,9 +139,29 @@ public class AdminPasswordChangingView extends BaseView {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField txtConfirmPassword;
-    private javax.swing.JTextField txtNewPassword;
-    private javax.swing.JTextField txtOldPassword;
+    private javax.swing.JPasswordField txtConfirmPassword;
+    private javax.swing.JPasswordField txtNewPassword;
+    private javax.swing.JPasswordField txtOldPassword;
     // End of variables declaration//GEN-END:variables
+
+    public String getTxtConfirmPassword() {
+        return String.valueOf(txtConfirmPassword.getPassword());
+    }
+
+    public void setTxtConfirmPassword(String txtConfirmPassword) {
+        this.txtConfirmPassword.setText(txtConfirmPassword);
+    }
+
+    public String getTxtNewPassword() {
+        return String.valueOf(txtNewPassword.getPassword());
+    }
+
+    public void setTxtNewPassword(String txtNewPassword) {
+        this.txtNewPassword.setText(txtNewPassword);
+    }
+
+    public String getTxtOldPassword() {
+        return String.valueOf(txtOldPassword.getPassword());
+    }
 
 }

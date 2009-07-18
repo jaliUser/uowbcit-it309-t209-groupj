@@ -5,13 +5,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-import it309.rms.exception.ResourceException;
-import it309.rms.exception.EmployeeException;
-import it309.rms.exception.AdministratorException;
-
 import it309.rms.dataclass.*;
-import it309.rms.exception.BaseException;
-import java.util.List;
+
 
 
 /************************************************************************************
@@ -21,8 +16,8 @@ import java.util.List;
 public class Util
 {
 	public static final String HSQLDB_DRIVER_NAME = "org.hsqldb.jdbcDriver";
-	//public static final String HSQLDB_SERVER_URL = "jdbc:hsqldb:hsql://localhost/rms";
-        public static final String HSQLDB_SERVER_URL = "jdbc:hsqldb:file:RMS";
+	public static final String HSQLDB_SERVER_URL = "jdbc:hsqldb:hsql://localhost/rms";
+
 	public static Connection getConnection() throws SQLException, ClassNotFoundException
 	{
 		return getConnectionFromDriverManager();
@@ -66,9 +61,9 @@ public class Util
     }
 
 
-	public static EmployeeInfo getEmployee(ResultSet rs) throws SQLException
+	public static EmployeeInfo getEmployee(ResultSet rs, EmployeeInfo employee) throws SQLException
 	{
-		EmployeeInfo employee = new EmployeeInfo();
+		//EmployeeInfo employee = new EmployeeInfo();
 
 
 		employee.setId(rs.getString("id"));
@@ -84,29 +79,34 @@ public class Util
 	}
 
 
-	public static ResourceInfo getResource(ResultSet rs) throws SQLException
+	public static ResourceInfo getResource(ResultSet rs, ResourceInfo resource) throws SQLException
 	{
-		ResourceInfo resource = new ResourceInfo();
+		//ResourceInfo resource = new ResourceInfo();
         
 		resource.setResourceId(rs.getString("id"));
+		resource.setResourceType(rs.getString("type"));
         resource.setResourceTitle(rs.getString("title"));
-
-        UserIdInfo authorIdInfo = new UserIdInfo();
-        resource.setAuthorIdInfo(authorIdInfo);
-		authorIdInfo.setId(rs.getString("author_id"));
-
-        UserIdInfo evaluatorIdInfo = new UserIdInfo();
-        resource.setAuthorIdInfo(evaluatorIdInfo);
-		evaluatorIdInfo.setId(rs.getString("evaluator_id"));
-
-		resource.setDescription(rs.getString("description"));
+        resource.setDescription(rs.getString("description"));
 		resource.setStatus(rs.getString("status"));
-		resource.setDate_entered(rs.getDate("date_entered"));
-		resource.setDate_required(rs.getDate("date_required"));
-		resource.setPurpose(rs.getString("purpose"));
-		resource.setComment(rs.getString("comment"));
-		resource.setDate_evaluated(rs.getDate("date_evaluated"));
 
+        if (!Util.isNullOrEmpty(rs.getString("author_id"))){
+            UserIdInfo authorIdInfo = new UserIdInfo();
+            resource.setAuthorIdInfo(authorIdInfo);
+            authorIdInfo.setId(rs.getString("author_id"));
+            resource.setDate_entered(rs.getDate("date_entered"));
+            resource.setDate_required(rs.getDate("date_required"));
+            resource.setDate_return(rs.getDate("date_return"));
+            resource.setPurpose(rs.getString("purpose"));
+        }
+
+        if (!Util.isNullOrEmpty(rs.getString("evaluator_id"))){
+            UserIdInfo evaluatorIdInfo = new UserIdInfo();
+            resource.setEvaluatorIdInfo(evaluatorIdInfo);
+            evaluatorIdInfo.setId(rs.getString("evaluator_id"));
+            resource.setDate_evaluated(rs.getDate("date_evaluated"));
+            resource.setComment(rs.getString("comment"));
+        }
+		
 		return resource;
 	}
 
@@ -121,11 +121,11 @@ public class Util
 		return false;
 	}
 
-	public ResultInfo validate(List paramList)
-	{
-        ResultInfo result = new ResultInfo();
-		
-		return result;
-	}
-
+    public static String DBValue(Object obj){
+        if (obj != null)
+        {
+            return "'" + obj.toString() + "'";
+        }
+        return null;
+    }
 }

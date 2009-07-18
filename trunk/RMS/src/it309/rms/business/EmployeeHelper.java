@@ -20,6 +20,27 @@ import java.util.LinkedList;
  */
 public class EmployeeHelper{
 
+    // The class variable, dao, is reference to the only instance of this class
+	private static EmployeeHelper helper = null;
+
+    // 	Other class should call this method to get the only instance of this class
+	// 	The instantiation of object is on demand only
+	//	The method is thread-safe
+	public static EmployeeHelper getInstance()
+	{
+		if (helper == null)
+		{
+			synchronized (EmployeeHelper.class)
+			{
+				if (helper == null)
+				{
+					helper = new EmployeeHelper();
+				}
+			}
+		}
+		return helper;
+	}
+
     public ResultInfo Logon(UserIdInfo employeeIdInfo) throws EmployeeException
     {
         ResultInfo resultInfo = null;
@@ -114,6 +135,7 @@ public class EmployeeHelper{
 
             if (resultInfo.getResult())
             {
+                idInfo.setPassword(newPassword);
                 resultInfo =  EmployeeDao.getInstance().updatePassword(idInfo);
             }
 
@@ -130,12 +152,32 @@ public class EmployeeHelper{
         }
     }
 
+     public ResultInfo getEmployeeById(String id, EmployeeInfo employeeInfo) throws EmployeeException
+    {
+        ResultInfo resultInfo = null;
+        try
+        {
+
+            resultInfo = EmployeeDao.getInstance().getEmployeeInfo(id, employeeInfo);
+
+        }
+        catch (EmployeeException e)
+        {
+            resultInfo.setResult(false);
+            resultInfo.setMessage(String.format(DataConstant.Message.EXEPTION_MESSAGE,
+                                                         this.getClass().getName(),e.getMessage()));
+        }
+         finally
+        {
+            return resultInfo;
+        }
+    }
+
     public ResultInfo search(String field, String condition, Collection list) throws EmployeeException
     {
         ResultInfo resultInfo = null;
         try
         {
-            list = new LinkedList();
             resultInfo = EmployeeDao.getInstance().searchEmployee(field, condition, list);
 
         }

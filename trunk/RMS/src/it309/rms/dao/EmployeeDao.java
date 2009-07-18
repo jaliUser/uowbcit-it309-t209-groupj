@@ -184,7 +184,7 @@ public class EmployeeDao implements java.io.Serializable
 		}
 	}
 
-     // Retrieve the employeeInfo information using the employeeID and password
+     // check if Employee exists or not
 	public synchronized ResultInfo checkExist(UserIdInfo userIdInfo) throws EmployeeException
 	{
 		Connection con = null;
@@ -193,7 +193,7 @@ public class EmployeeDao implements java.io.Serializable
 		{
 			con=Util.getConnection();
 			Statement stm = con.createStatement();
-			String sql = "SELECT Count(id) FROM Employee WHERE id='"+userIdInfo.getId()+"' and passowrd='";
+			String sql = "SELECT id FROM Employee WHERE id='"+userIdInfo.getId()+"' and password='";
             sql = sql + userIdInfo.getPassword() + "'";
 
             ResultSet rs = stm.executeQuery(sql);
@@ -234,8 +234,13 @@ public class EmployeeDao implements java.io.Serializable
 
 			if ((rs.next()))
 			{
-				employeeInfo = Util.getEmployee(rs);
+				Util.getEmployee(rs, employeeInfo);
 			}
+            else
+            {
+                resultInfo.setResult(false);
+                resultInfo.setMessage(DataConstant.Message.USER_NOT_EXIST);
+            }
 
         }catch (Exception e)
 		{
@@ -255,8 +260,6 @@ public class EmployeeDao implements java.io.Serializable
     public ResultInfo searchEmployee(String fieldName, String condition, Collection collect) throws EmployeeException
 	{
 		Connection con = null;
-		collect = new LinkedList();
-
         EmployeeInfo employeeInfo = null;
 
         ResultInfo resultInfo = new ResultInfo();
@@ -265,15 +268,16 @@ public class EmployeeDao implements java.io.Serializable
 		{
 			con = Util.getConnection();
 			Statement state = con.createStatement();
-			String sqlStatement = "SELECT * FROM Employee WHERE " + fieldName + " like '%"+ condition +"%'";
+			String sqlStatement = "SELECT * FROM Employee WHERE " + fieldName + " like upper('%"+ condition.toUpperCase() +"%')";
             sqlStatement = sqlStatement + " ORDER BY " + fieldName;
 
 
 			ResultSet rs = state.executeQuery(sqlStatement);
 
-			if((rs.next()))
+			while((rs.next()))
 			{
-				employeeInfo = Util.getEmployee(rs);
+				employeeInfo = new EmployeeInfo();
+                Util.getEmployee(rs, employeeInfo);
 				collect.add(employeeInfo);
 			}
             

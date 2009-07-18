@@ -4,11 +4,21 @@ import java.io.Serializable;
 
 public class UserIdInfo implements Cloneable, Serializable{
 
-    private String name;
+    private String name = "";
 
-    private String id;
+    private String id = "";
 
-    private String password;
+    private String password = "";
+
+    private int userType;
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
+    }
 
     public UserIdInfo() {
     }

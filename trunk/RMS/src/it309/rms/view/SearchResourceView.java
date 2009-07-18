@@ -11,15 +11,24 @@
 
 package it309.rms.view;
 
+import it309.rms.controller.SearchResourceController;
+import it309.rms.dataclass.ResourceInfo;
+import java.util.Collection;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author khangdt
  */
 public class SearchResourceView extends BaseView {
     
+    SearchResourceController controller;
+
     /** Creates new form AdminMain */
     public SearchResourceView() {
         initComponents();
+        controller = new SearchResourceController(this);
+        controller.init();
     }
     
     /** This method is called from within the constructor to
@@ -32,21 +41,26 @@ public class SearchResourceView extends BaseView {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        cboSearch = new javax.swing.JComboBox();
         btnValidate = new javax.swing.JButton();
         btnBook = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        tblResult = new javax.swing.JTable();
+        btnView = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Id", "Name", "Type", "Status" }));
+        cboSearch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Id", "Title", "Type", "Status" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -54,9 +68,9 @@ public class SearchResourceView extends BaseView {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox1, 0, 169, Short.MAX_VALUE)
+                .addComponent(cboSearch, 0, 169, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSearch)
                 .addContainerGap())
@@ -67,8 +81,8 @@ public class SearchResourceView extends BaseView {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -86,20 +100,31 @@ public class SearchResourceView extends BaseView {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblResult.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID", "Type", "Name", "Status"
+                "ID", "Type", "Title", "Status"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jButton2.setText("View");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblResult.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tblResult);
+
+        btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14));
         jLabel3.setText("Search resources");
@@ -116,7 +141,7 @@ public class SearchResourceView extends BaseView {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnValidate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                        .addComponent(btnView))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -127,7 +152,7 @@ public class SearchResourceView extends BaseView {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBook, btnValidate, jButton2});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBook, btnValidate, btnView});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,31 +166,88 @@ public class SearchResourceView extends BaseView {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBook)
                     .addComponent(btnValidate)
-                    .addComponent(jButton2))
+                    .addComponent(btnView))
                 .addGap(36, 36, 36))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
-        show( new ResourceBookingView());
+        controller.book();
     }//GEN-LAST:event_btnBookActionPerformed
 
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
-        show(new ResourceEvalutingView());
+        controller.evaluate();
     }//GEN-LAST:event_btnValidateActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        controller.view();
+    }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        controller.search();
+    }//GEN-LAST:event_btnSearchActionPerformed
                         
+    public String selectedId(){
+
+        int selectedRow = tblResult.getSelectedRow();
+        String selectedId = "";
+
+
+        if (selectedRow >= 0)
+        {
+            selectedId = (String)tblResult.getValueAt(selectedRow, 0);
+        }
+        
+        return selectedId;
+    }
+
+
+    public void setTableResources (Collection list){
+
+        DefaultTableModel model = (DefaultTableModel)tblResult.getModel();
+        model.setRowCount(0);
+
+
+		int count;
+
+		//putting search result list into table tblResult
+        ResourceInfo resourceInfo;
+		for(count=0; count < list.size();count++)
+		{
+            resourceInfo = (ResourceInfo)list.toArray()[count];
+            model.addRow(new Object[]{resourceInfo.getResourceId(),
+                                        resourceInfo.getResourceType(),
+                                        resourceInfo.getResourceTitle(),
+                                        resourceInfo.getStatus()});
+		}
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBook;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnValidate;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton btnView;
+    private javax.swing.JComboBox cboSearch;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblResult;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
-    
+
+    public String getTxtSearch() {
+        return txtSearch.getText();
+    }
+
+    public String getCboSearch() {
+        return cboSearch.getSelectedItem().toString();
+    }
+
+    public void setCboSearch(String cboSearch) {
+        this.cboSearch.setSelectedItem(cboSearch);
+    }
+
+    public void setTxtSearch(String txtSearch) {
+        this.txtSearch.setText(txtSearch);
+    }
 }

@@ -11,6 +11,8 @@
 
 package it309.rms.view;
 
+import it309.rms.dataclass.DataConstant;
+
 
 /**
  *
@@ -18,10 +20,11 @@ package it309.rms.view;
  */
 public class AdminMainView extends BaseView {
 
+
+
     /** Creates new form AdminMain */
     public AdminMainView() {
         initComponents();
-        
         setComponent(new SearchEmployeeView(), mainPanel);
     }
 
@@ -212,7 +215,7 @@ public class AdminMainView extends BaseView {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAddNewEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewEmployeeActionPerformed
-        setComponent(new EmployeeAddingView(), mainPanel);
+        setComponent(new EmployeeUpdatingView(DataConstant.EmployeeAction.ADD), mainPanel);
 }//GEN-LAST:event_btnAddNewEmployeeActionPerformed
 
 
