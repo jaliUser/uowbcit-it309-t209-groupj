@@ -40,7 +40,7 @@ import java.util.*;
 	}
 
 	//Book Resource, resourceId as primary key
-	public synchronized ResultInfo book(ResourceInfo resourceInfo) throws ResourceException
+	public synchronized ResultInfo updateBookingInfo(ResourceInfo resourceInfo) throws ResourceException
 	{
 		Connection con = null;
         ResultInfo resultInfo = new ResultInfo();
@@ -49,10 +49,12 @@ import java.util.*;
 			con = Util.getConnection();
 			Statement state = con.createStatement();
 
-			String sqlStatement = "UPDATE Resource SET author_id = '";
-			sqlStatement = sqlStatement + resourceInfo.getAuthorIdInfo().getId() + "', date_entered = ";
-			sqlStatement = sqlStatement + "now , date_required = '";
-            sqlStatement = sqlStatement + resourceInfo.getDate_required() + "', purpose = '";
+			String sqlStatement = "UPDATE Resource SET author_id = ";
+			sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getAuthorIdInfo().getId()) + ", date_entered = ";
+			sqlStatement = sqlStatement + "now , date_required = ";
+            sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getDate_required()) + ", date_return = ";
+            sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getDate_return()) + ", status = '";
+            sqlStatement = sqlStatement + resourceInfo.getStatus() + "', purpose = '";
 			sqlStatement = sqlStatement + resourceInfo.getPurpose() + "'";
             sqlStatement = sqlStatement + " WHERE id='";
 			sqlStatement = sqlStatement + resourceInfo.getResourceId() + "'";
@@ -118,7 +120,7 @@ import java.util.*;
 
 	/* evaluate existing Resource
 	   by targetted employee 		*/
-	public synchronized ResultInfo updateResource(ResourceInfo resourceInfo) throws ResourceException
+	public synchronized ResultInfo updateEvaludatingInfo(ResourceInfo resourceInfo) throws ResourceException
 	{
 		Connection cont = null;
         ResultInfo resultInfo = new ResultInfo();
@@ -157,15 +159,10 @@ import java.util.*;
 		}
 	}
 
-	//Retrieve all Resources based on string condition
-	public ResultInfo searchResource(String fieldName, 
-                                           String condition,
-                                           Collection collect) throws ResourceException
+    //Get Resource base on Author Id
+	public ResultInfo getResourceByAuthorId(String authorId, Collection list) throws ResourceException
 	{
 		Connection cont = null;
-		collect = new LinkedList();
-
-        ResourceInfo resourceInfo = null;
 
         ResultInfo resultInfo = new ResultInfo();
 
@@ -173,16 +170,17 @@ import java.util.*;
 		{
 			cont = Util.getConnection();
 			Statement state = cont.createStatement();
-			String sqlStatement = "SELECT * FROM Resource WHERE "+ fieldName +" like '%"+ condition +"%'" ;
-            sqlStatement = sqlStatement + " ORDER BY " + fieldName;
-			
+			String sqlStatement = "SELECT * FROM Resource WHERE author_id='"+ authorId +"'";
+
 
 			ResultSet rs = state.executeQuery(sqlStatement);
 
-			if((rs.next()))
+            ResourceInfo resourceInfo = null;
+			while((rs.next()))
 			{
-				resourceInfo = Util.getResource(rs);
-				collect.add(resourceInfo);
+                resourceInfo = new ResourceInfo();
+				resourceInfo = Util.getResource(rs, resourceInfo);
+                list.add(resourceInfo);
 			}
 		}
 		catch (Exception e)
@@ -199,26 +197,68 @@ import java.util.*;
 		}
 	}
 
-	//Retrieve all Resources based on Resource date
-	public ResultInfo searchResource(String fieldName,
-                                            String fromDate,
-                                            String toDate,
-                                            Collection collect) throws ResourceException				//(java.sql.Date sggDate) throws ResourceException
+    //Get Resource base on Resource Id
+	public ResultInfo getResource(String resourceId, ResourceInfo resourceInfo) throws ResourceException
 	{
 		Connection cont = null;
-		collect = new LinkedList();
-		ResultInfo resultInfo = new ResultInfo();
+
+        ResultInfo resultInfo = new ResultInfo();
+
 		try
 		{
 			cont = Util.getConnection();
 			Statement state = cont.createStatement();
-			ResultSet rs = state.executeQuery("SELECT * FROM Resource WHERE " + fromDate +  " <= "+fieldName+" <= " + fromDate + " ORDER BY " + fieldName);
+			String sqlStatement = "SELECT * FROM Resource WHERE id='"+ resourceId +"'";
 
-			ResourceInfo resourceInfo;
 
-			while (rs.next())
+			ResultSet rs = state.executeQuery(sqlStatement);
+
+			if((rs.next()))
 			{
-				resourceInfo = Util.getResource(rs);
+				resourceInfo = Util.getResource(rs, resourceInfo);
+			}
+            else
+            {
+                resultInfo.setResult(false);
+                resultInfo.setMessage(DataConstant.Message.RESOURCE_NOT_EXIST);
+            }
+		}
+		catch (Exception e)
+		{
+			resultInfo.setResult(false);
+            resultInfo.setErrorType(DataConstant.ErrorType.ERROR);
+            resultInfo.setMessage(String.format(DataConstant.Message.EXEPTION_MESSAGE,
+                                                        this.getClass().getName(),e.getMessage()));
+		}
+		finally
+		{
+			Util.closeConnection(cont);
+            return resultInfo;
+		}
+	}
+
+	//Retrieve all Resources based on string condition
+	public ResultInfo searchResource(String fieldName, String condition, Collection collect) throws ResourceException
+	{
+		Connection cont = null;
+
+        ResultInfo resultInfo = new ResultInfo();
+
+		try
+		{
+			cont = Util.getConnection();
+			Statement state = cont.createStatement();
+			String sqlStatement = "SELECT * FROM Resource WHERE "+ fieldName +" like upper('%"+ condition.toUpperCase() +"%')" ;
+            sqlStatement = sqlStatement + " ORDER BY " + fieldName;
+			
+
+			ResultSet rs = state.executeQuery(sqlStatement);
+
+            ResourceInfo resourceInfo = null;
+			while((rs.next()))
+			{
+                resourceInfo = new ResourceInfo();
+				Util.getResource(rs, resourceInfo);
 				collect.add(resourceInfo);
 			}
 		}

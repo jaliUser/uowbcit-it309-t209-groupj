@@ -4,31 +4,55 @@
  */
 
 /*
- * EmployeeEditingView.java
+ * EmployeeUpdatingView.java
  *
- * Created on Jul 5, 2009, 7:28:43 PM
+ * Created on Jul 5, 2009, 4:21:10 PM
  */
 
 package it309.rms.view;
 
-import it309.rms.controller.EmployeeProfileChangingController;
-import javax.swing.JTextField;
+import it309.rms.controller.EmployeeUpdatingController;
+import it309.rms.dataclass.DataConstant;
 
 /**
  *
  * @author khangdt
  */
-public class EmployeeProfileChangingView extends BaseView {
-    
-    EmployeeProfileChangingController controller;
+public class EmployeeUpdatingView extends BaseView {
 
-    /** Creates new form EmployeeEditingView */
-    public EmployeeProfileChangingView() {
-        initComponents();
-        controller = new EmployeeProfileChangingController(this);
-        controller.init();
-    }
+    EmployeeUpdatingController controller;
     
+
+    public int getAction() {
+        return action;
+    }
+
+    public void setAction(int action) {
+        this.action = action;
+    }
+    private int action;
+
+    /** Creates new form EmployeeUpdatingView */
+    public EmployeeUpdatingView(int action) {
+        initComponents();
+        this.action = action;
+        controller = new EmployeeUpdatingController(this);
+        this.lblEmployeeAction.setText("Add New Employee");
+    }
+
+    public EmployeeUpdatingView(int action, String id, BaseView preView) {
+        initComponents();
+        this.action = action;
+        setTxtId(id);
+        controller = new EmployeeUpdatingController(this);
+        this.lblEmployeeAction.setText("Edit Employee");
+        controller.setPreView(preView);
+        controller.initEditingView();
+    }
+
+
+
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -38,40 +62,25 @@ public class EmployeeProfileChangingView extends BaseView {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        txtPhone = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        txtAddress = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        txtTitle = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
+        btnSubmit = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        lblEmployeeAction = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtTitle = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtAddress = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtPhone = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        btnSubmit = new javax.swing.JButton();
-        btnReset = new javax.swing.JButton();
         txtEmail = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13));
-        jLabel3.setText("Change profile");
-
-        jLabel10.setText("Phone");
-
-        jLabel9.setText("Address");
-
-        jLabel8.setText("Title");
-
-        jLabel7.setText("Name");
-
-        jLabel5.setText("ID");
-
-        txtId.setEditable(false);
-
-        jLabel11.setText("Email");
 
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -80,60 +89,92 @@ public class EmployeeProfileChangingView extends BaseView {
             }
         });
 
-        btnReset.setText("Reset");
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        lblEmployeeAction.setFont(new java.awt.Font("Tahoma", 1, 13));
+        lblEmployeeAction.setText("Add new employee");
+
+        jLabel6.setText("Password");
+
+        jLabel5.setText("ID");
+
+        txtId.setEditable(false);
+
+        jLabel7.setText("Name");
+
+        jLabel8.setText("Title");
+
+        jLabel9.setText("Address");
+
+        jLabel10.setText("Phone");
+
+        jLabel11.setText("Email");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblEmployeeAction, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnSubmit)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnReset))
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)))))
-                .addGap(79, 79, 79))
+                                        .addComponent(btnBack))
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))))))
+                .addGap(108, 108, 108))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblEmployeeAction, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,30 +198,44 @@ public class EmployeeProfileChangingView extends BaseView {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
-                    .addComponent(btnReset))
-                .addGap(29, 29, 29))
+                    .addComponent(btnBack))
+                .addGap(40, 40, 40))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        controller.changeMyProfile();
+        switch (action)
+        {
+            case DataConstant.EmployeeAction.ADD:
+                controller.addEmployee();
+                break;
+            case DataConstant.EmployeeAction.EDIT:
+                controller.editEmployee();
+                break;
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
-    
-    
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        controller.back();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblEmployeeAction;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
@@ -217,6 +272,14 @@ public class EmployeeProfileChangingView extends BaseView {
         this.txtName.setText(txtName);
     }
 
+    public String getTxtPassword() {
+        return String.valueOf(txtPassword.getPassword());
+    }
+
+    public void setTxtPassword(String txtPassword) {
+        this.txtPassword.setText(txtPassword);
+    }
+
     public String getTxtPhone() {
         return txtPhone.getText();
     }
@@ -232,5 +295,5 @@ public class EmployeeProfileChangingView extends BaseView {
     public void setTxtTitle(String txtTitle) {
         this.txtTitle.setText(txtTitle);
     }
-    
+
 }

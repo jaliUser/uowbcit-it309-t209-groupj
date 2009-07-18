@@ -12,6 +12,7 @@
 package it309.rms.view;
 
 import java.awt.Component;
+import java.awt.Container;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
  */
 public class BaseView extends javax.swing.JPanel {
 
+    
     /** Creates new form BaseView */
     public BaseView() {
         initComponents();
@@ -41,6 +43,7 @@ public class BaseView extends javax.swing.JPanel {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(com, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        //com.requestFocus();
         //parentPanel.validate();
     }
 
@@ -59,7 +62,6 @@ public class BaseView extends javax.swing.JPanel {
     /** To Change content of the mainPanel in the AdminMainView*/
     public void setComponent(Component com, JPanel parentCom){
         parentCom.removeAll();
-        
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(parentCom);
         parentCom.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -70,6 +72,7 @@ public class BaseView extends javax.swing.JPanel {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(com, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        //com.requestFocus();
     }
 
     /** To show the default screen of Admin*/

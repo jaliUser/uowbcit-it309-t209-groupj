@@ -11,15 +11,30 @@
 
 package it309.rms.view;
 
+import it309.rms.controller.ResourceBookingController;
+
 /**
  *
  * @author khangdt
  */
 public class ResourceBookingView extends BaseView {
 
+    ResourceBookingController controller;
+    
     /** Creates new form BookingView */
     public ResourceBookingView() {
         initComponents();
+        controller = new ResourceBookingController(this);
+        controller.init();
+    }
+
+    /** Creates new form BookingView */
+    public ResourceBookingView(String resourceId, BaseView preView) {
+        initComponents();
+        setTxtId(resourceId);
+        controller = new ResourceBookingController(this);
+        controller.setPreView(preView);
+        controller.init();
     }
 
     /** This method is called from within the constructor to
@@ -36,20 +51,20 @@ public class ResourceBookingView extends BaseView {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
+        txtType = new javax.swing.JTextField();
+        txtTitle = new javax.swing.JTextField();
+        txtDescription = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        btnReset = new javax.swing.JButton();
+        txtPurpose = new javax.swing.JTextField();
+        txtRequestingDate = new javax.swing.JTextField();
+        btnSubmit = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtReturnDate = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -60,17 +75,17 @@ public class ResourceBookingView extends BaseView {
 
         jLabel2.setText("Type");
 
-        jLabel3.setText("Name");
+        jLabel3.setText("Title");
 
         jLabel4.setText("Description");
 
-        jTextField1.setEditable(false);
+        txtId.setEditable(false);
 
-        jTextField2.setEditable(false);
+        txtType.setEditable(false);
 
-        jTextField3.setEditable(false);
+        txtTitle.setEditable(false);
 
-        jTextField4.setEditable(false);
+        txtDescription.setEditable(false);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14));
         jLabel5.setText("Resource detail");
@@ -94,10 +109,10 @@ public class ResourceBookingView extends BaseView {
                             .addComponent(jLabel4))
                         .addGap(36, 36, 36)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE))))
+                            .addComponent(txtTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
+                            .addComponent(txtDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
+                            .addComponent(txtType, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
+                            .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -108,19 +123,19 @@ public class ResourceBookingView extends BaseView {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -130,9 +145,19 @@ public class ResourceBookingView extends BaseView {
 
         jLabel7.setText("Requesting date");
 
-        jButton1.setText("Submit");
+        btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
-        btnReset.setText("Reset");
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Return date");
 
@@ -149,16 +174,16 @@ public class ResourceBookingView extends BaseView {
                 .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnSubmit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReset)
+                        .addComponent(btnBack)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                            .addComponent(txtPurpose, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
+                                .addComponent(txtReturnDate, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtRequestingDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
                         .addGap(334, 334, 334))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -167,19 +192,19 @@ public class ResourceBookingView extends BaseView {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRequestingDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPurpose, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnReset))
+                    .addComponent(btnSubmit)
+                    .addComponent(btnBack))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -210,10 +235,18 @@ public class ResourceBookingView extends BaseView {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        controller.book();
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        controller.back();
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReset;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
@@ -225,13 +258,69 @@ public class ResourceBookingView extends BaseView {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField txtDescription;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtPurpose;
+    private javax.swing.JTextField txtRequestingDate;
+    private javax.swing.JTextField txtReturnDate;
+    private javax.swing.JTextField txtTitle;
+    private javax.swing.JTextField txtType;
     // End of variables declaration//GEN-END:variables
+
+    public String getTxtDescription() {
+        return txtDescription.getText();
+    }
+
+    public void setTxtDescription(String txtDescription) {
+        this.txtDescription.setText(txtDescription);
+    }
+
+    public String getTxtId() {
+        return txtId.getText();
+    }
+
+    public void setTxtId(String txtId) {
+        this.txtId.setText(txtId);
+    }
+
+    public String getTxtPurpose() {
+        return txtPurpose.getText();
+    }
+
+    public void setTxtPurpose(String txtPurpose) {
+        this.txtPurpose.setText(txtPurpose);
+    }
+
+    public String getTxtRequestingDate() {
+        return txtRequestingDate.getText();
+    }
+
+    public void setTxtRequestingDate(String txtRequestingDate) {
+        this.txtRequestingDate.setText(txtRequestingDate);
+    }
+
+    public String getTxtReturnDate() {
+        return txtReturnDate.getText();
+    }
+
+    public void setTxtReturnDate(String txtReturnDate) {
+        this.txtReturnDate.setText(txtReturnDate);
+    }
+
+    public String getTxtTitle() {
+        return txtTitle.getText();
+    }
+
+    public void setTxtTitle(String txtTitle) {
+        this.txtTitle.setText(txtTitle);
+    }
+
+    public String getTxtType() {
+        return txtType.getText();
+    }
+
+    public void setTxtType(String txtType) {
+        this.txtType.setText(txtType);
+    }
 
 }

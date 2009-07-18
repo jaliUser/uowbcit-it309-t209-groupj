@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class EmployeeInfo extends UserIdInfo implements Cloneable, Serializable{
   /* {src_lang=Java}*/
 
-    private String adress;
+    private String adress = "";
 
-    private String title;
+    private String title = "";
 
-    private String phone;
+    private String phone = "";
 
-    private String email;
+    private String email = "";
 
 
 

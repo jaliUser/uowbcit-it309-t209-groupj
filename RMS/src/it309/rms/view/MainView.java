@@ -11,6 +11,8 @@
 
 package it309.rms.view;
 
+import it309.rms.dataclass.DataConstant;
+
 /**
  *
  * @author khangdt
@@ -33,6 +35,7 @@ public class MainView extends BaseView {
 
         btnAdminLogin = new javax.swing.JButton();
         btnEmployeeLogin = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
         setLayout(new java.awt.FlowLayout());
 
@@ -51,20 +54,33 @@ public class MainView extends BaseView {
             }
         });
         add(btnEmployeeLogin);
+
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+        add(btnExit);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEmployeeLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeLoginActionPerformed
-        show(new LoginView(LoginView.EMPLOYEE_LOGIN));
+        show(new LoginView(DataConstant.UserType.EMPLOYEE_LOGIN));
 }//GEN-LAST:event_btnEmployeeLoginActionPerformed
 
     private void btnAdminLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminLoginActionPerformed
-        show(new LoginView(LoginView.ADMIN_LOGIN));
+        show(new LoginView(DataConstant.UserType.ADMIN_LOGIN));
 }//GEN-LAST:event_btnAdminLoginActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        exit();
+}//GEN-LAST:event_btnExitActionPerformed
         
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdminLogin;
     private javax.swing.JButton btnEmployeeLogin;
+    private javax.swing.JButton btnExit;
     // End of variables declaration//GEN-END:variables
     
 }

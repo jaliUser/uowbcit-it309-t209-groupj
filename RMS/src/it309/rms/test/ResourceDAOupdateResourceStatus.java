@@ -28,7 +28,7 @@ public class ResourceDAOupdateResourceStatus {
         try
         {
                 //to test whether update resource function in Resource DAO works properly
-            ResultInfo ri = resDao.updateResource(rsi);
+            ResultInfo ri = resDao.updateResourceStatus(rsi);
             if (ri.getResult())
             {
                 System.out.println("Update resource status success : "+rsi.getResourceId());
