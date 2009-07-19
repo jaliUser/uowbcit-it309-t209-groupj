@@ -42,7 +42,6 @@ public class EmployeePasswordChangingView extends BaseView {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
-        btnReset = new javax.swing.JButton();
         txtOldPassword = new javax.swing.JPasswordField();
         txtNewPassword = new javax.swing.JPasswordField();
         txtConfirmPassword = new javax.swing.JPasswordField();
@@ -65,8 +64,6 @@ public class EmployeePasswordChangingView extends BaseView {
             }
         });
 
-        btnReset.setText("Reset");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,10 +84,7 @@ public class EmployeePasswordChangingView extends BaseView {
                             .addComponent(txtConfirmPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                             .addComponent(txtNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                             .addComponent(txtOldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnSubmit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnReset)))))
+                            .addComponent(btnSubmit))))
                 .addGap(71, 71, 71))
         );
         layout.setVerticalGroup(
@@ -114,9 +108,7 @@ public class EmployeePasswordChangingView extends BaseView {
                     .addComponent(jLabel6)
                     .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReset)
-                    .addComponent(btnSubmit))
+                .addComponent(btnSubmit)
                 .addContainerGap(58, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -127,7 +119,6 @@ public class EmployeePasswordChangingView extends BaseView {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

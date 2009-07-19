@@ -1,3 +1,8 @@
+/*
+ * This class is responsible for processing data of table Resource in database.
+ *
+ */
+
 package it309.rms.dao;
 
 import it309.rms.dataclass.DataConstant;
@@ -9,11 +14,11 @@ import it309.rms.util.Util;
 import java.sql.*;
 import java.util.*;
 
-/* This is a class to keep track of Resource Information			*
- * The implementation of this dao uses Singleton design pattern,	*
- * which is to make sure only one dao per class Loader 				*/
-
- public class ResourceDao implements java.io.Serializable
+/**
+ *
+ * @author khangdt
+ */
+public class ResourceDao implements java.io.Serializable
 {
 	//class variable, dao, references to the only instance
 	private static ResourceDao resourceDAO = null;
@@ -39,7 +44,42 @@ import java.util.*;
 		return resourceDAO;
 	}
 
-	//Book Resource, resourceId as primary key
+    //Update booking information
+	public synchronized ResultInfo removeBookingInformation(ResourceInfo resourceInfo) throws ResourceException
+	{
+		Connection con = null;
+        ResultInfo resultInfo = new ResultInfo();
+		try
+		{
+			con = Util.getConnection();
+			Statement state = con.createStatement();
+
+			String sqlStatement = "UPDATE Resource SET author_id = null, date_entered=null, date_required=null, date_return=null, purpose = null, status='";
+            sqlStatement = sqlStatement + resourceInfo.getStatus() + "'";
+            sqlStatement = sqlStatement + " WHERE id=" + Util.DBValue(resourceInfo.getResourceId());
+
+			int count = state.executeUpdate(sqlStatement);
+			if (count == 0)
+			{
+				resultInfo.setResult(false);
+                resultInfo.setMessage(DataConstant.Message.NO_DATA_UPDATED);
+			}
+		}
+        catch (Exception e)
+		{
+            resultInfo.setResult(false);
+            resultInfo.setErrorType(DataConstant.ErrorType.ERROR);
+            resultInfo.setMessage(String.format(DataConstant.Message.EXEPTION_MESSAGE,
+                                                        this.getClass().getName(),e.getMessage()));
+		}
+        finally
+		{
+			Util.closeConnection(con);
+            return resultInfo;
+		}
+    }
+
+	//Update booking information
 	public synchronized ResultInfo updateBookingInfo(ResourceInfo resourceInfo) throws ResourceException
 	{
 		Connection con = null;
@@ -50,14 +90,50 @@ import java.util.*;
 			Statement state = con.createStatement();
 
 			String sqlStatement = "UPDATE Resource SET author_id = ";
-			sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getAuthorIdInfo().getId()) + ", date_entered = ";
-			sqlStatement = sqlStatement + "now , date_required = ";
-            sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getDate_required()) + ", date_return = ";
-            sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getDate_return()) + ", status = '";
-            sqlStatement = sqlStatement + resourceInfo.getStatus() + "', purpose = '";
+			sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getAuthorIdInfo().getId()) + ", date_entered = now,";
+			sqlStatement = sqlStatement + " date_required=";
+            sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getDate_required()) + ", date_return=";
+            sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getDate_return()) + ", status ='";
+            sqlStatement = sqlStatement + resourceInfo.getStatus() + "', purpose ='";
 			sqlStatement = sqlStatement + resourceInfo.getPurpose() + "'";
-            sqlStatement = sqlStatement + " WHERE id='";
-			sqlStatement = sqlStatement + resourceInfo.getResourceId() + "'";
+            sqlStatement = sqlStatement + " WHERE id=" + Util.DBValue(resourceInfo.getResourceId());
+
+			int count = state.executeUpdate(sqlStatement);
+			if (count == 0)
+			{
+				resultInfo.setResult(false);
+                resultInfo.setMessage(DataConstant.Message.NO_DATA_UPDATED);
+			}
+		}
+        catch (Exception e)
+		{
+            resultInfo.setResult(false);
+            resultInfo.setErrorType(DataConstant.ErrorType.ERROR);
+            resultInfo.setMessage(String.format(DataConstant.Message.EXEPTION_MESSAGE,
+                                                        this.getClass().getName(),e.getMessage()));
+		}
+        finally
+		{
+			Util.closeConnection(con);
+            return resultInfo;
+		}
+    }
+
+    //Update booking information and valuating information
+	public synchronized ResultInfo updateBookingAndEvaluatingInfo(ResourceInfo resourceInfo) throws ResourceException
+	{
+		Connection con = null;
+        ResultInfo resultInfo = new ResultInfo();
+		try
+		{
+			con = Util.getConnection();
+			Statement state = con.createStatement();
+
+			String sqlStatement = "UPDATE Resource SET author_id=null, date_entered=null, date_required=null, date_return=null, purpose = null, status='";
+            sqlStatement = sqlStatement + resourceInfo.getStatus() + "', evaluator_id=";
+            sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getEvaluatorIdInfo().getId()) + ", comment=";
+            sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getComment()) + ", date_evaluated=now";
+            sqlStatement = sqlStatement + " WHERE id=" + Util.DBValue(resourceInfo.getResourceId());
 
 			int count = state.executeUpdate(sqlStatement);
 			if (count == 0)
@@ -93,8 +169,7 @@ import java.util.*;
 
 			String sqlStatement = "UPDATE Resource SET status = '";
 			sqlStatement = sqlStatement + resourceInfo.getStatus() + "'";
-            sqlStatement = sqlStatement + " WHERE id='";
-			sqlStatement = sqlStatement + resourceInfo.getResourceId() + "'";
+            sqlStatement = sqlStatement + " WHERE id=" + Util.DBValue(resourceInfo.getResourceId());
 
 			int count = state.executeUpdate(sqlStatement);
 			if (count == 0)
@@ -129,13 +204,12 @@ import java.util.*;
 			cont = Util.getConnection();
 			Statement state = cont.createStatement();
 
-			String sqlStatement = "UPDATE Resource SET evaluator_id = '";
-			sqlStatement = sqlStatement + resourceInfo.getEvaluatorIdInfo().getId() + "', comment = '";
-			sqlStatement = sqlStatement + resourceInfo.getComment() + "', date_evaluated = now";
-			sqlStatement = sqlStatement + ", status = '";
+			String sqlStatement = "UPDATE Resource SET evaluator_id =";
+			sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getEvaluatorIdInfo().getId()) + ", comment =";
+			sqlStatement = sqlStatement + Util.DBValue(resourceInfo.getComment()) + ", date_evaluated=now,";
+			sqlStatement = sqlStatement + " status = '";
             sqlStatement = sqlStatement + resourceInfo.getStatus() + "'";
-            sqlStatement = sqlStatement + " WHERE id='";
-			sqlStatement = sqlStatement + resourceInfo.getResourceId() + "'";
+            sqlStatement = sqlStatement + " WHERE id=" + Util.DBValue(resourceInfo.getResourceId());
 
 			int count = state.executeUpdate(sqlStatement);
 

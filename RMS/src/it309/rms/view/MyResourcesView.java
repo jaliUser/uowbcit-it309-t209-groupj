@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * AdminMain.java
  *
  * Created on Jul 6, 2009, 9:55:35 AM
@@ -45,6 +40,7 @@ public class MyResourcesView extends BaseView {
         tblResult = new javax.swing.JTable();
         btnCancelBooking = new javax.swing.JButton();
         btnView = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -55,7 +51,15 @@ public class MyResourcesView extends BaseView {
             new String [] {
                 "ID", "Type", "Name", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblResult);
 
         btnCancelBooking.setText("Cancel booking");
@@ -72,6 +76,9 @@ public class MyResourcesView extends BaseView {
             }
         });
 
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14));
+        jLabel13.setText("My resources");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,14 +90,16 @@ public class MyResourcesView extends BaseView {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCancelBooking)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnView)))
+                        .addComponent(btnView))
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelBooking)
@@ -144,6 +153,7 @@ public class MyResourcesView extends BaseView {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelBooking;
     private javax.swing.JButton btnView;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblResult;
     // End of variables declaration//GEN-END:variables

@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * BookingView.java
  *
  * Created on Jul 7, 2009, 10:53:00 AM
@@ -112,7 +107,7 @@ public class ResourceBookingView extends BaseView {
                             .addComponent(txtTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
                             .addComponent(txtDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
                             .addComponent(txtType, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
-                            .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE))))
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -182,8 +177,8 @@ public class ResourceBookingView extends BaseView {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPurpose, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtReturnDate, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtRequestingDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
+                                .addComponent(txtReturnDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                                .addComponent(txtRequestingDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)))
                         .addGap(334, 334, 334))))
         );
         jPanel2Layout.setVerticalGroup(

@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * AdminMain.java
  *
  * Created on Jul 6, 2009, 9:55:35 AM
@@ -13,10 +8,7 @@ package it309.rms.view;
 
 import it309.rms.controller.SearchEmployeeController;
 import it309.rms.dataclass.EmployeeInfo;
-import it309.rms.dataclass.ResourceInfo;
 import java.util.Collection;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -109,7 +101,15 @@ public class SearchEmployeeView extends BaseView {
             new String [] {
                 "ID", "Name"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblResult);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14));

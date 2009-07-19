@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is a class to receive the delegation of EmployeeUpdatingView.
+ * This class is responsible for processing application logic
+ * and call funtions of business classes.
  */
 
 package it309.rms.controller;
@@ -9,8 +10,9 @@ import it309.rms.business.EmployeeHelper;
 import it309.rms.dataclass.DataConstant;
 import it309.rms.dataclass.EmployeeInfo;
 import it309.rms.dataclass.ResultInfo;
-import it309.rms.view.BaseView;
+import it309.rms.util.Validator;
 import it309.rms.view.EmployeeUpdatingView;
+import java.util.Hashtable;
 
 /**
  *
@@ -21,17 +23,11 @@ public class EmployeeUpdatingController extends BaseController {
     private EmployeeUpdatingView view;
     private ResultInfo result;
 
-    private BaseView preView;
-
-    public void setPreView(BaseView preView) {
-        this.preView = preView;
-    }
-
-    
     public EmployeeUpdatingController(EmployeeUpdatingView view){
         this.view = view;
     }
 
+    //Initiation of employee editing view
     public void initEditingView(){
         try{
             EmployeeInfo employeeInfo = new EmployeeInfo();
@@ -54,6 +50,7 @@ public class EmployeeUpdatingController extends BaseController {
         }
     }
 
+    //Process of employee addition
     public void addEmployee(){
         try {
 
@@ -79,6 +76,7 @@ public class EmployeeUpdatingController extends BaseController {
         }
     }
 
+    //Process of employee editing
     public void editEmployee(){
         try {
 
@@ -89,7 +87,7 @@ public class EmployeeUpdatingController extends BaseController {
                 {
                     view.showInformMessage(DataConstant.Message.UPDATED_EMPLOYEE);
                     //Return the default screen
-                    this.back();
+                    view.setDefaultAdminComponent();
                 }
                 else
                 {
@@ -105,12 +103,29 @@ public class EmployeeUpdatingController extends BaseController {
         }
     }
 
-    public boolean isValid()
+    //Validate inputted data
+    private boolean isValid()
     {
-        //result = Validator.checkEmpty(paramList);
+        Hashtable ht = new Hashtable();
+        ht.put(DataConstant.FieldName.EMPLOYEE_ID, view.getTxtId());
+        ht.put(DataConstant.FieldName.EMPLOYEE_PASSWORD, view.getTxtPassword());
+        ht.put(DataConstant.FieldName.EMPLOYEE_NAME, view.getTxtName());
+        ht.put(DataConstant.FieldName.ADDRESS, view.getTxtAddress());
+        ht.put(DataConstant.FieldName.PHONE, view.getTxtPhone());
+        ht.put(DataConstant.FieldName.EMAIL, view.getTxtEmail());
+
+        result = Validator.checkEmpty(ht);
+
+
+        if (!result.getResult()){
+            view.showWarningMessage(result.getMessage());
+            return false;
+        }
+
         return true;
     }
 
+    //Get employee information from View
     private EmployeeInfo getEmployeeInfo()
     {
         EmployeeInfo employeeInfo = new EmployeeInfo();
@@ -124,7 +139,8 @@ public class EmployeeUpdatingController extends BaseController {
 
         return employeeInfo;
     }
-    
+
+    //Pass employee information to View for display
     private void showEmployeeInfo(EmployeeInfo employeeInfo)
     {
         view.setTxtId(employeeInfo.getId());
@@ -136,7 +152,8 @@ public class EmployeeUpdatingController extends BaseController {
         view.setTxtPhone(employeeInfo.getPhone());
     }
 
+    //Show pre form
     public void back(){
-        view.setComponent(preView);
+        view.setDefaultAdminComponent();
     }
 }

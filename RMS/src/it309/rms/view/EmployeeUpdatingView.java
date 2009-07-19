@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * EmployeeUpdatingView.java
  *
  * Created on Jul 5, 2009, 4:21:10 PM
@@ -35,6 +30,9 @@ public class EmployeeUpdatingView extends BaseView {
     /** Creates new form EmployeeUpdatingView */
     public EmployeeUpdatingView(int action) {
         initComponents();
+        btnBack.setText("Search");
+        this.txtId.setEditable(true);
+
         this.action = action;
         controller = new EmployeeUpdatingController(this);
         this.lblEmployeeAction.setText("Add New Employee");
@@ -42,12 +40,16 @@ public class EmployeeUpdatingView extends BaseView {
 
     public EmployeeUpdatingView(int action, String id, BaseView preView) {
         initComponents();
-        this.action = action;
+        btnBack.setText("Back");
         setTxtId(id);
+        this.txtId.setEditable(false);
+
+        this.action = action;
         controller = new EmployeeUpdatingController(this);
         this.lblEmployeeAction.setText("Edit Employee");
         controller.setPreView(preView);
         controller.initEditingView();
+        
     }
 
 
