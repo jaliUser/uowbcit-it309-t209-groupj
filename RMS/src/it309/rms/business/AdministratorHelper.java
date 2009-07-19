@@ -1,12 +1,11 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This is a class is responsible for proccessing business logic which relates to Administrator
+ * and call functions of DAO classes.
  */
 
 package it309.rms.business;
 
 import it309.rms.dao.AdministratorDao;
-import it309.rms.dao.EmployeeDao;
 import it309.rms.dataclass.DataConstant;
 import it309.rms.dataclass.ResultInfo;
 import it309.rms.dataclass.UserIdInfo;
@@ -39,6 +38,7 @@ public class AdministratorHelper {
 		return helper;
 	}
 
+    //Process of Logon
     public ResultInfo Logon(UserIdInfo IdInfo) throws AdministratorException
     {
         ResultInfo resultInfo = null;
@@ -61,6 +61,7 @@ public class AdministratorHelper {
 
     }
 
+    //Process of password change
     public ResultInfo changePassword(UserIdInfo idInfo, String newPassword) throws AdministratorException
     {
          ResultInfo resultInfo = null;

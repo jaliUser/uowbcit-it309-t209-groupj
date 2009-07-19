@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is a class to receive the delegation of ResourceView.
+ * This class is responsible for processing application logic
+ * and call funtions of business classes.
  */
 
 package it309.rms.controller;
@@ -11,17 +12,15 @@ import it309.rms.dataclass.ResourceInfo;
 import it309.rms.dataclass.ResultInfo;
 import it309.rms.view.BaseView;
 import it309.rms.view.ResourceView;
-import it309.rms.view.SearchResourceView;
 
 /**
  *
  * @author khangdt
  */
-public class ResourceDetailController {
+public class ResourceDetailController extends BaseController {
     
     private ResourceView view;
     private ResultInfo result;
-    private BaseView preView;
     
     public ResourceDetailController(ResourceView view){
         this.view = view;
@@ -31,19 +30,23 @@ public class ResourceDetailController {
         this.view = view;
         this.preView = preView;
     }
-    
+
+    //Initiation of View
     public void init(){
         viewResourceDetail();
     }
 
+    //Pass resource detail to View for display.
     private void showResourceInfo(ResourceInfo resourceInfo){
         view.setTxtId(resourceInfo.getResourceId());
         view.setTxtType(resourceInfo.getResourceType());
         view.setTxtTitle(resourceInfo.getResourceTitle());
         view.setTxtDescription(resourceInfo.getDescription());
         view.setTxtStatus(resourceInfo.getStatus());
+        view.setTxtComment(resourceInfo.getComment());
     }
 
+    //Process of getting resource detail and display.
     private void viewResourceDetail(){
         try{
             ResourceInfo resourceInfo = new ResourceInfo();
@@ -66,6 +69,7 @@ public class ResourceDetailController {
         }
     }
 
+    //Show pre form
     public void back(){
         view.setComponent(preView);
     }

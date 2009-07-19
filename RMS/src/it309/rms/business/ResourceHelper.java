@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This is a class is responsible for proccessing business logic which relates to Resource
+ * and call functions of DAO classes.
  */
 
 package it309.rms.business;
@@ -12,7 +12,6 @@ import it309.rms.dataclass.ResultInfo;
 import it309.rms.dataclass.UserIdInfo;
 import it309.rms.exception.ResourceException;
 import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  *
@@ -40,7 +39,8 @@ public class ResourceHelper {
 		}
 		return helper;
 	}
-    
+
+    //Process of search resource
     public ResultInfo searchByTextField(String field, String condition, Collection list) throws ResourceException
     {
         ResultInfo resultInfo = null;
@@ -61,6 +61,7 @@ public class ResourceHelper {
         }
     }
 
+    //Process of get resources booking
     public ResultInfo getMyResources(String id, Collection list) throws ResourceException
     {
         ResultInfo resultInfo = null;
@@ -80,6 +81,7 @@ public class ResourceHelper {
         }
     }
 
+    //Process of getting resource by Id
     public ResultInfo getResourceById(String id, ResourceInfo resourceInfo) throws ResourceException
     {
         ResultInfo resultInfo = null;
@@ -99,6 +101,7 @@ public class ResourceHelper {
         }
     }
 
+    //Process of booking resource
     public ResultInfo book(ResourceInfo resourceInfo) throws ResourceException
     {
         ResultInfo resultInfo = null;
@@ -120,12 +123,21 @@ public class ResourceHelper {
         }
     }
 
+    //Process of resource evaluation
     public ResultInfo Evaluate(ResourceInfo resourceInfo) throws ResourceException
     {
         ResultInfo resultInfo = null;
         try
         {
-            resultInfo = ResourceDao.getInstance().updateEvaludatingInfo(resourceInfo);
+            if (DataConstant.ResourceStatus.APPROVED.equals(resourceInfo.getStatus()))
+            {
+                resultInfo = ResourceDao.getInstance().updateEvaludatingInfo(resourceInfo);
+            }
+            else
+            {
+                resourceInfo.setAuthorIdInfo(new UserIdInfo(null,null));
+                resultInfo = ResourceDao.getInstance().updateBookingAndEvaluatingInfo(resourceInfo);
+            }
 
         }
         catch (ResourceException e)
@@ -140,6 +152,7 @@ public class ResourceHelper {
         }
     }
 
+    //Process of cancel booking
     public ResultInfo cancelBooking(ResourceInfo resourceInfo) throws ResourceException
     {
         ResultInfo resultInfo = null;
@@ -153,7 +166,7 @@ public class ResourceHelper {
                     resourceInfoTemp.getAuthorIdInfo().getId().equals(resourceInfo.getAuthorIdInfo().getId()) &&
                     !resourceInfoTemp.getStatus().equals(DataConstant.ResourceStatus.APPROVED))
             {
-                resourceInfo.setStatus(resourceInfoTemp.getStatus());
+                resourceInfo.setStatus(DataConstant.ResourceStatus.FUNCTIONING);
                 resourceInfo.setAuthorIdInfo(new UserIdInfo(null,null));
                 resultInfo = ResourceDao.getInstance().updateBookingInfo(resourceInfo);
             }

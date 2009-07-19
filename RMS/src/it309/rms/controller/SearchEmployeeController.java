@@ -1,11 +1,11 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is a class to receive the delegation of SearchEmployeeView.
+ * This class is responsible for processing application logic
+ * and call funtions of business classes.
  */
 
 package it309.rms.controller;
 
-import com.sun.org.apache.bcel.internal.generic.Select;
 import it309.rms.business.EmployeeHelper;
 import it309.rms.dataclass.DataConstant;
 import it309.rms.dataclass.ResultInfo;
@@ -32,6 +32,7 @@ public class SearchEmployeeController extends BaseController {
         this.view = view;
     }
 
+    //Initiation of View.
     public void init()
     {
         if (!(Util.isNullOrEmpty(searchField) && Util.isNullOrEmpty(searchCondition)))
@@ -40,7 +41,8 @@ public class SearchEmployeeController extends BaseController {
             searchEmployee();
         }
     }
-    
+
+    //Process of search employee
     public void searchEmployee(){
         try{
             //Save search condition
@@ -67,6 +69,7 @@ public class SearchEmployeeController extends BaseController {
         }
     }
 
+    //Show form for editing employee
     public void editEmployee(){
         if (isValid())
         {
@@ -76,6 +79,7 @@ public class SearchEmployeeController extends BaseController {
         }
     }
 
+    //Process of deleting employee
     public void deleteEmployee(){
         try{
             if (isValid())
@@ -102,6 +106,7 @@ public class SearchEmployeeController extends BaseController {
         }
     }
 
+    //Get search field condition base on the object selected by user.
     private String getSearchFieldCondition()
     {
         if (view.getCboSearch().equals("Id"))
@@ -114,16 +119,19 @@ public class SearchEmployeeController extends BaseController {
         }
     }
 
+    //Pass pre-search condition to view.
     private void setPreSearchCondition()
     {
         view.setCboSearch(searchField);
         view.setTxtSearch(searchCondition);
     }
-    
+
+    //Pass result list to view for display.
     private void showSearchResult(Collection list){
         view.setTableResources(list);
     }
 
+    //Validate data inputted
     private boolean isValid(){
         if(Util.isNullOrEmpty(view.selectedId()))
         {

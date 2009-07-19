@@ -1,7 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+ * This class is a base class which is extended by all classes in controller package.
+*/
 
 package it309.rms.controller;
 

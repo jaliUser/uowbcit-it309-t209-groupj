@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is a class to receive the delegation of LoginView.
+ * This class is responsible for processing application logic
+ * and call funtions of business classes.
  */
 
 package it309.rms.controller;
@@ -28,6 +29,7 @@ public class LoginController extends BaseController {
         this.view = view;
     }
 
+    //Process of login
     public void login(){
         try {
            getUserIdInfo().setId(view.getTxtUserId());

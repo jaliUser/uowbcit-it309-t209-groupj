@@ -1,19 +1,18 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is a class to receive the delegation of MyResourcesView.
+ * This class is responsible for processing application logic
+ * and call funtions of business classes.
  */
 
 package it309.rms.controller;
 
-import com.sun.corba.se.impl.orbutil.closure.Constant;
 import it309.rms.business.ResourceHelper;
 import it309.rms.dataclass.DataConstant;
 import it309.rms.dataclass.ResourceInfo;
 import it309.rms.dataclass.ResultInfo;
 import it309.rms.util.Util;
-import it309.rms.view.BaseView;
 import it309.rms.view.MyResourcesView;
-import it309.rms.view.ResourceView;
+import it309.rms.view.ResourceEvalutingView;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -30,11 +29,13 @@ public class MyResourcesController extends BaseController{
         this.view = view;
     }
 
+    //Initiation of View
     public void init()
     {
         listMyResources();
     }
-    
+
+    //Process of getting resources
     public void listMyResources(){
         try{
             Collection list = new LinkedList();
@@ -57,6 +58,7 @@ public class MyResourcesController extends BaseController{
         }
     }
 
+    //Process of booking cancellation
     public void cancelBooking(){
         try{
             if (isValid())
@@ -86,18 +88,21 @@ public class MyResourcesController extends BaseController{
         listMyResources();
     }
 
+    //Show resource detail form
     public void view(){
         if (isValid())
         {
-            ResourceView resourceDetail = new ResourceView(view.selectedId(), view);
+            ResourceEvalutingView resourceDetail = new ResourceEvalutingView(view.selectedId(), view);
             view.setComponent(resourceDetail);
         }
     }
 
+    //Pass search result to View for display
     private void showSearchResult(Collection list){
         view.setTableResources(list);
     }
 
+    //Validate inputted data
     private boolean isValid(){
         if(Util.isNullOrEmpty(view.selectedId()))
         {
