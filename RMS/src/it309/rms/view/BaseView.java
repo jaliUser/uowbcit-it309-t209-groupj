@@ -8,8 +8,11 @@ package it309.rms.view;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.ScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JViewport;
 
 /**
  *
@@ -23,29 +26,17 @@ public class BaseView extends javax.swing.JPanel {
         initComponents();
     }
 
-    private JPanel parentPanel;
+    //private JViewport parentPanel;
 
     /** To Change content of the mainPanel in the Main screen */
-    public void show(Component com, JPanel parentPanel){
+    public void show(Component com, JViewport parentPanel){
         parentPanel.removeAll();
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(parentPanel);
-        parentPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(com, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(com, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        //com.requestFocus();
-        //parentPanel.validate();
+        parentPanel.add(com);
     }
 
     /** To Change content of the mainPanel in the Main screen */
     public void show(Component com){
-        parentPanel = (JPanel)this.getParent();
-        show(com, parentPanel);
+        show(com, (JViewport)this.getParent());
     }
 
     /** To Change content of the mainPanel in the AdminMainView*/
