@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * EmployeeEditingView.java
  *
  * Created on Jul 5, 2009, 7:28:43 PM
@@ -51,7 +46,6 @@ public class EmployeeProfileChangingView extends BaseView {
         txtId = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
-        btnReset = new javax.swing.JButton();
         txtEmail = new javax.swing.JTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -79,8 +73,6 @@ public class EmployeeProfileChangingView extends BaseView {
                 btnSubmitActionPerformed(evt);
             }
         });
-
-        btnReset.setText("Reset");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -114,10 +106,7 @@ public class EmployeeProfileChangingView extends BaseView {
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnSubmit)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnReset))
+                                    .addComponent(btnSubmit)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,9 +144,7 @@ public class EmployeeProfileChangingView extends BaseView {
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSubmit)
-                    .addComponent(btnReset))
+                .addComponent(btnSubmit)
                 .addGap(29, 29, 29))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -168,7 +155,6 @@ public class EmployeeProfileChangingView extends BaseView {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

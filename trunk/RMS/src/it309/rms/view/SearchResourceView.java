@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * AdminMain.java
  *
  * Created on Jul 6, 2009, 9:55:35 AM
@@ -198,6 +193,20 @@ public class SearchResourceView extends BaseView {
             selectedId = (String)tblResult.getValueAt(selectedRow, 0);
         }
         
+        return selectedId;
+    }
+
+    public String selectedStatus(){
+
+        int selectedRow = tblResult.getSelectedRow();
+        String selectedId = "";
+
+
+        if (selectedRow >= 0)
+        {
+            selectedId = (String)tblResult.getValueAt(selectedRow, 3);
+        }
+
         return selectedId;
     }
 

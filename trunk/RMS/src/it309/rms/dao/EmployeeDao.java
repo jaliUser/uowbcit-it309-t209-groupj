@@ -1,3 +1,8 @@
+/*
+ * This class is responsible for processing data of table Employee in database.
+ *
+ */
+
 package it309.rms.dao;
 
 import it309.rms.dataclass.DataConstant;
@@ -8,10 +13,11 @@ import it309.rms.exception.EmployeeException;
 import it309.rms.util.Util;
 import java.sql.*;
 import java.util.Collection;
-import java.util.LinkedList;
 
-
-
+/**
+ *
+ * @author khangdt
+ */
 public class EmployeeDao implements java.io.Serializable
 {
 

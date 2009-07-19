@@ -33,14 +33,16 @@
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtTitle" alignment="0" pref="335" max="32767" attributes="2"/>
-                          <Component id="txtType" alignment="0" pref="335" max="32767" attributes="2"/>
-                          <Component id="txtId" alignment="0" pref="335" max="32767" attributes="2"/>
-                          <Component id="txtDescription" alignment="0" pref="335" max="32767" attributes="2"/>
-                          <Component id="txtStatus" alignment="0" pref="335" max="32767" attributes="2"/>
+                          <Component id="txtComment" pref="359" max="32767" attributes="2"/>
+                          <Component id="txtDescription" pref="359" max="32767" attributes="2"/>
+                          <Component id="txtTitle" alignment="0" pref="359" max="32767" attributes="2"/>
+                          <Component id="txtType" alignment="0" pref="359" max="32767" attributes="2"/>
+                          <Component id="txtId" alignment="0" pref="359" max="32767" attributes="2"/>
+                          <Component id="txtStatus" alignment="0" pref="359" max="32767" attributes="2"/>
                           <Component id="btnBack" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -76,16 +78,21 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtDescription" alignment="3" min="-2" pref="78" max="-2" attributes="0"/>
+                  <Component id="txtDescription" alignment="3" min="-2" pref="67" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtComment" alignment="3" min="-2" pref="67" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnBack" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -93,7 +100,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ID"/>
+        <Property name="text" type="java.lang.String" value="Resource Id"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -155,6 +162,16 @@
     <Component class="javax.swing.JTextField" name="txtStatus">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtComment">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Comment"/>
       </Properties>
     </Component>
   </SubComponents>

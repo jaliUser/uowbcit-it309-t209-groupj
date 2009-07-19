@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * LoginView.java
  *
  * Created on Jul 5, 2009, 8:00:45 PM

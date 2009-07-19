@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * BaseView.java
  *
  * Created on Jul 6, 2009, 10:41:35 AM
@@ -99,6 +94,10 @@ public class BaseView extends javax.swing.JPanel {
 
     public void showInformMessage(String msg){
         JOptionPane.showMessageDialog(this, msg,"Information Message",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showWarningMessage(String msg){
+        JOptionPane.showMessageDialog(this, msg,"Information Message",JOptionPane.WARNING_MESSAGE);
     }
 
     public int showConfirmMessage(String msg){

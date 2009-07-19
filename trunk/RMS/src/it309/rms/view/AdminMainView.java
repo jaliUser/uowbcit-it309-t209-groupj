@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * AdminMain.java
  *
  * Created on Jul 6, 2009, 9:55:35 AM

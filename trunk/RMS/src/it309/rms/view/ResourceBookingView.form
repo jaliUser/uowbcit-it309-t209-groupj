@@ -80,7 +80,7 @@
                               <Component id="txtTitle" alignment="0" pref="794" max="32767" attributes="0"/>
                               <Component id="txtDescription" alignment="0" pref="794" max="32767" attributes="0"/>
                               <Component id="txtType" alignment="0" pref="794" max="32767" attributes="0"/>
-                              <Component id="txtId" alignment="0" pref="794" max="32767" attributes="0"/>
+                              <Component id="txtId" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -200,8 +200,8 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtPurpose" alignment="1" pref="473" max="32767" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtReturnDate" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="txtRequestingDate" alignment="0" pref="151" max="32767" attributes="1"/>
+                                  <Component id="txtReturnDate" alignment="0" pref="161" max="32767" attributes="1"/>
+                                  <Component id="txtRequestingDate" alignment="0" pref="161" max="32767" attributes="1"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="334" max="-2" attributes="0"/>

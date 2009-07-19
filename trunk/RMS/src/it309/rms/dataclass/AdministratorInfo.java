@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This is a class used to contain data from Administrator table
+ * and tranfer data between layers.
  */
 
 package it309.rms.dataclass;

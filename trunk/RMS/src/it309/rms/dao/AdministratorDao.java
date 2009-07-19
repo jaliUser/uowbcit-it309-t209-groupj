@@ -1,3 +1,8 @@
+/*
+ * This class is responsible for processing data of table Administrator in database.
+ *
+ */
+
 package it309.rms.dao;
 
 import it309.rms.dataclass.*;
@@ -5,6 +10,10 @@ import it309.rms.exception.AdministratorException;
 import it309.rms.util.Util;
 import java.sql.*;
 
+/**
+ *
+ * @author khangdt
+ */
 public class AdministratorDao implements java.io.Serializable
 {
 	// The class variable, dao, is reference to the only instance of this class
@@ -35,6 +44,7 @@ public class AdministratorDao implements java.io.Serializable
 	}
 
 
+    //Update Administrator password
 	public synchronized ResultInfo updatePassword(UserIdInfo administrator) throws AdministratorException
 	{
 		Connection con = null;
