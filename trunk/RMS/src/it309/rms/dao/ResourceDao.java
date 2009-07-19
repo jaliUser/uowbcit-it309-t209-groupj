@@ -322,7 +322,7 @@ public class ResourceDao implements java.io.Serializable
 		{
 			cont = Util.getConnection();
 			Statement state = cont.createStatement();
-			String sqlStatement = "SELECT * FROM Resource WHERE "+ fieldName +" like upper('%"+ condition.toUpperCase() +"%')" ;
+			String sqlStatement = "SELECT * FROM Resource WHERE upper("+ fieldName +") like '%"+ condition.toUpperCase() +"%'" ;
             sqlStatement = sqlStatement + " ORDER BY " + fieldName;
 			
 

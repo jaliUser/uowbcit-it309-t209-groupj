@@ -7,6 +7,7 @@ package it309.rms.test;
 
 import it309.rms.dao.EmployeeDao;
 import it309.rms.dataclass.EmployeeInfo;
+import it309.rms.dataclass.ResultInfo;
 
 /**
  *
@@ -25,8 +26,17 @@ public class EmployeeDAOgetEmployeeInfo {
         try
         {
                 //get employee for specified employee ID
-                empDao.getEmployeeInfo(empID, emp);
-                System.out.println("Employee = "+emp.getName());
+                ResultInfo ri = empDao.getEmployeeInfo(empID, emp);
+                if (ri.getResult())
+                {
+                    System.out.println("Employee Info: "+ emp.getId() + " ; "
+                            + emp.getName() + " ; "
+                            + emp.getTitle() + " ; "
+                            + emp.getAdress() + " ; "
+                            + emp.getPhone());
+                } else {
+                    System.out.println("Retrieve Employee Info failed.");
+                }
         }
         catch(Exception ex)
         {

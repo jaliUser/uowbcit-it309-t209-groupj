@@ -34,7 +34,7 @@ public class EmployeeDAOupdate {
             ResultInfo ri = empDao.update(emp);
             if (ri.getResult())
             {
-                System.out.println("Update Success : "+emp);
+                System.out.println("Update Success : "+emp.getId());
             } else {
                 System.out.println("Update Fail ");
             }

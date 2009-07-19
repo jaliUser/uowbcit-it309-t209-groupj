@@ -21,9 +21,8 @@ public class ResourceDAOsearchResource1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String fieldName = "ResourceID";
+        String fieldName = "ID";
         String condition = "RS001";
-        ResourceInfo rsi = new ResourceInfo();
         List<ResourceInfo> collect = new LinkedList<ResourceInfo>();
         ResourceDao resDao = ResourceDao.getInstance();
         //to test whether searchResource function in Resource DAO works properly
@@ -31,13 +30,8 @@ public class ResourceDAOsearchResource1 {
         {
                 ResultInfo ri = resDao.searchResource(fieldName, condition, collect);
                 if(ri.getResult())
-                {
-                    if (collect.contains(rsi))
-                    {
-                        System.out.println("Collection have total records : "+collect.size());
-                    } else {
-                        System.out.println("Collection do not have record ");
-                    }
+                {                    
+                    System.out.println("Collection have total records : "+collect.size());                    
                 } else {
                     System.out.println("ResultInfo do not have result ");
                 }

@@ -274,7 +274,7 @@ public class EmployeeDao implements java.io.Serializable
 		{
 			con = Util.getConnection();
 			Statement state = con.createStatement();
-			String sqlStatement = "SELECT * FROM Employee WHERE " + fieldName + " like upper('%"+ condition.toUpperCase() +"%')";
+			String sqlStatement = "SELECT * FROM Employee WHERE upper(" + fieldName + ") like '%"+ condition.toUpperCase() +"%'";
             sqlStatement = sqlStatement + " ORDER BY " + fieldName;
 
 

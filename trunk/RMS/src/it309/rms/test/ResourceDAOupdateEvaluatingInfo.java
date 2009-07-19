@@ -22,12 +22,9 @@ public class ResourceDAOupdateEvaluatingInfo {
     public static void main(String[] args) {
         ResourceInfo rsi = new ResourceInfo();
         rsi.setResourceId("RS001");
-        rsi.setResourceType("Reference");
-        rsi.setResourceTitle("IT309 – System development & implementation");
-        rsi.setStatus("Functioning");
-        rsi.setDescription("Study guide version 2");
-        rsi.setComment("Informatics Edu. Library");
         rsi.setEvaluatorIdInfo(new UserIdInfo("TestID1", null));
+        rsi.setComment("Informatics Edu. Library");
+        rsi.setStatus(null);
         ResourceDao resDao = ResourceDao.getInstance();
         try
         {
