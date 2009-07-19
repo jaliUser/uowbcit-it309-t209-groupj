@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is a class to receive the delegation of ResourceEvalutingView.
+ * This class is responsible for processing application logic
+ * and call funtions of business classes.
  */
 
 package it309.rms.controller;
@@ -10,7 +11,6 @@ import it309.rms.business.ResourceHelper;
 import it309.rms.dataclass.ResultInfo;
 import it309.rms.dataclass.ResourceInfo;
 import it309.rms.dataclass.DataConstant;
-import it309.rms.view.SearchResourceView;
 
 /**
  *
@@ -26,6 +26,7 @@ public class ResourceEvaluatingController extends BaseController{
         this.view = view;
     }
 
+    //Inititaion of View
     public void init(){
         try{
             ResourceInfo resourceInfo = new ResourceInfo();
@@ -48,16 +49,38 @@ public class ResourceEvaluatingController extends BaseController{
         }
     }
 
+    //Pass resource status to View for display
+    private void setCboStatusValues(String status){
+        view.removeAllCboStatusItems();
+        if (status.equals(DataConstant.ResourceStatus.BOOKED)){
+            view.setCboStatusValue(DataConstant.ResourceStatus.APPROVED);
+            view.setCboStatusValue(DataConstant.ResourceStatus.DAMAGED);
+            view.setCboStatusValue(DataConstant.ResourceStatus.MAINTAINANCE);
+            view.setCboStatusValue(DataConstant.ResourceStatus.FUNCTIONING);
+        }
+        else
+        {
+            view.setCboStatusValue(DataConstant.ResourceStatus.MAINTAINANCE);
+            view.setCboStatusValue(DataConstant.ResourceStatus.DAMAGED);
+            view.setCboStatusValue(DataConstant.ResourceStatus.FUNCTIONING);
+        }
+    }
+
+    //Pass resource information to View for display.
     private void showResourceInfo(ResourceInfo resourceInfo){
         view.setTxtResourceId(resourceInfo.getResourceId());
         view.setTxtResourceType(resourceInfo.getResourceType());
         view.setTxtResourceTitle(resourceInfo.getResourceTitle());
         view.setTxtDescription(resourceInfo.getDescription());
+
+        setCboStatusValues(resourceInfo.getStatus());
+
         if (resourceInfo.getAuthorIdInfo() != null)
         {
             view.setTxtEmployeeId(resourceInfo.getAuthorIdInfo().getId());
             view.setTxtRequestingDate(resourceInfo.getDate_required().toString());
             view.setTxtReturnDate(resourceInfo.getDate_return().toString());
+            view.setTxtEnteredDate(resourceInfo.getDate_entered().toString());
             view.setTxtPurpose(resourceInfo.getPurpose());
         }
         if (resourceInfo.getEvaluatorIdInfo() != null)
@@ -70,9 +93,15 @@ public class ResourceEvaluatingController extends BaseController{
         
         view.setTxtPurpose(resourceInfo.getPurpose());
         view.setCboStatus(resourceInfo.getStatus());
-        view.setCboStatusValue(resourceInfo.getStatus());
+
+        if(preView.getClass().getName().equals("it309.rms.view.MyResourcesView")){
+            view.removeAllCboStatusItems();
+            view.setCboStatusValue(resourceInfo.getStatus());
+            view.setViewCase();
+        }
     }
 
+    //Get information of resource from View
     private ResourceInfo getResourceInfo(){
         ResourceInfo resourceInfo = new ResourceInfo();
         resourceInfo.setResourceId(view.getTxtResouceId());
@@ -84,22 +113,20 @@ public class ResourceEvaluatingController extends BaseController{
         return resourceInfo;
     }
 
+    //Process of evaluation
     public void evaluate(){
         try {
 
-            if (isValid())
+            result = ResourceHelper.getInstance().Evaluate(getResourceInfo());
+            if (result.getResult())
             {
-                result = ResourceHelper.getInstance().Evaluate(getResourceInfo());
-                if (result.getResult())
-                {
-                    view.showInformMessage(DataConstant.Message.EVALUATED_RESOURCE);
-                    //Return the default screen
-                    view.setComponent(new SearchResourceView());
-                }
-                else
-                {
-                    view.showMessage(result.getMessage(), result.getErrorType());
-                }
+                view.showInformMessage(DataConstant.Message.EVALUATED_RESOURCE);
+                //Return the default screen
+                view.setDefaultEmployeeComponent();
+            }
+            else
+            {
+                view.showMessage(result.getMessage(), result.getErrorType());
             }
 
         } catch (Exception e){
@@ -109,13 +136,8 @@ public class ResourceEvaluatingController extends BaseController{
         }
     }
 
+    //Show pre form
     public void back(){
         view.setComponent(preView);
-    }
-
-    public boolean isValid()
-    {
-        //result = Validator.checkEmpty(paramList);
-        return true;
     }
 }

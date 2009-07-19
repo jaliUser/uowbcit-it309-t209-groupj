@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This is a class is responsible for proccessing business logic which relates to Employee
+ * and call functions of DAO classes.
  */
 
 package it309.rms.business;
@@ -12,7 +12,6 @@ import it309.rms.dataclass.ResultInfo;
 import it309.rms.dataclass.UserIdInfo;
 import it309.rms.exception.EmployeeException;
 import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  *
@@ -41,6 +40,7 @@ public class EmployeeHelper{
 		return helper;
 	}
 
+    //Process of logon
     public ResultInfo Logon(UserIdInfo employeeIdInfo) throws EmployeeException
     {
         ResultInfo resultInfo = null;
@@ -63,6 +63,7 @@ public class EmployeeHelper{
         
     }
 
+    //Process of employee addition
     public ResultInfo Add(EmployeeInfo employeeInfo) throws EmployeeException
     {
         ResultInfo resultInfo = null;
@@ -84,6 +85,7 @@ public class EmployeeHelper{
         }
     }
 
+    //Process of employee deleting
     public ResultInfo delete(UserIdInfo employeeIdInfo) throws EmployeeException
     {
         ResultInfo resultInfo = null;
@@ -105,6 +107,7 @@ public class EmployeeHelper{
         }
     }
 
+    //Process of employee updating
     public ResultInfo update(EmployeeInfo employeeInfo) throws EmployeeException
     {
         ResultInfo resultInfo = null;
@@ -126,6 +129,7 @@ public class EmployeeHelper{
         }
     }
 
+    //Process of password change
     public ResultInfo changePassword(UserIdInfo idInfo, String newPassword) throws EmployeeException
     {
          ResultInfo resultInfo = null;
@@ -152,6 +156,7 @@ public class EmployeeHelper{
         }
     }
 
+    //Process of getting employee base on Id
      public ResultInfo getEmployeeById(String id, EmployeeInfo employeeInfo) throws EmployeeException
     {
         ResultInfo resultInfo = null;
@@ -173,6 +178,7 @@ public class EmployeeHelper{
         }
     }
 
+     //Process of search employee
     public ResultInfo search(String field, String condition, Collection list) throws EmployeeException
     {
         ResultInfo resultInfo = null;

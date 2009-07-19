@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is a class to receive the delegation of EmployeeProfileChangingView.
+ * This class is responsible for processing application logic
+ * and call funtions of business classes.
  */
 
 package it309.rms.controller;
@@ -9,7 +10,9 @@ import it309.rms.business.EmployeeHelper;
 import it309.rms.dataclass.DataConstant;
 import it309.rms.dataclass.ResultInfo;
 import it309.rms.dataclass.EmployeeInfo;
+import it309.rms.util.Validator;
 import it309.rms.view.EmployeeProfileChangingView;
+import java.util.Hashtable;
 
 /**
  *
@@ -24,10 +27,12 @@ public class EmployeeProfileChangingController extends BaseController{
         this.view = view;
     }
 
+    //Initiation of View
     public void init(){
         showMyProfile();
     }
-    
+
+    //Process of profile change
     public void changeMyProfile(){
         try {
 
@@ -54,16 +59,31 @@ public class EmployeeProfileChangingController extends BaseController{
         }
     }
 
-    public boolean isValid()
+    //Validate inputted data
+    private boolean isValid()
     {
-        //result = Validator.checkEmpty(paramList);
+        Hashtable ht = new Hashtable();
+        ht.put(DataConstant.FieldName.EMPLOYEE_NAME, view.getTxtName());
+        ht.put(DataConstant.FieldName.ADDRESS, view.getTxtAddress());
+        ht.put(DataConstant.FieldName.PHONE, view.getTxtPhone());
+        ht.put(DataConstant.FieldName.EMAIL, view.getTxtEmail());
+
+        result = Validator.checkEmpty(ht);
+
+        
+        if (!result.getResult()){
+            view.showWarningMessage(result.getMessage());
+            return false;
+        }
+
         return true;
     }
 
+    //Get employee information from View
     private EmployeeInfo getEmployeeInfo()
     {
         EmployeeInfo employeeInfo = new EmployeeInfo();
-        employeeInfo.setId(view.getTxtId());
+        employeeInfo.setId(getUserIdInfo().getId());
         employeeInfo.setPassword(getUserIdInfo().getPassword());
         employeeInfo.setName(view.getTxtName());
         employeeInfo.setAdress(view.getTxtAddress());
@@ -74,6 +94,7 @@ public class EmployeeProfileChangingController extends BaseController{
         return employeeInfo;
     }
 
+    //Pass employee information to View for display
     private void showEmployeeInfo(EmployeeInfo employeeInfo)
     {
         view.setTxtId(getUserIdInfo().getId());
@@ -84,6 +105,7 @@ public class EmployeeProfileChangingController extends BaseController{
         view.setTxtPhone(employeeInfo.getPhone());
     }
 
+    //Process of getting employee information.
     private void showMyProfile(){
         try{
 
@@ -106,4 +128,6 @@ public class EmployeeProfileChangingController extends BaseController{
              view.setDefaultAdminComponent();
         }
     }
+
+
 }

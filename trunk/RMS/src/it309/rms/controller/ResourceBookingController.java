@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is a class to receive the delegation of ResourceBookingView.
+ * This class is responsible for processing application logic
+ * and call funtions of business classes.
  */
 
 package it309.rms.controller;
@@ -10,7 +11,9 @@ import it309.rms.dataclass.ResultInfo;
 import it309.rms.view.ResourceBookingView;
 import it309.rms.dataclass.ResourceInfo;
 import it309.rms.dataclass.DataConstant;
+import it309.rms.util.Validator;
 import it309.rms.view.SearchResourceView;
+import java.util.Hashtable;
 /**
  *
  * @author khangdt
@@ -24,7 +27,7 @@ public class ResourceBookingController extends BaseController{
         this.view = view;
     }
 
-
+    //Initiation of View
     public void init(){
         try{
             ResourceInfo resourceInfo = new ResourceInfo();
@@ -47,6 +50,7 @@ public class ResourceBookingController extends BaseController{
         }
     }
 
+    //Pass resource information to View for display
     private void showResourceInfo(ResourceInfo resourceInfo){
         view.setTxtId(resourceInfo.getResourceId());
         view.setTxtType(resourceInfo.getResourceType());
@@ -54,6 +58,7 @@ public class ResourceBookingController extends BaseController{
         view.setTxtDescription(resourceInfo.getDescription());
     }
 
+    //Get booking information from View
     private ResourceInfo getResourceInfo(){
         ResourceInfo resourceInfo = new ResourceInfo();
         resourceInfo.setResourceId(view.getTxtId());
@@ -65,7 +70,8 @@ public class ResourceBookingController extends BaseController{
         
         return resourceInfo;
     }
-    
+
+    //Process of resource booking
     public void book(){
         try {
 
@@ -90,13 +96,34 @@ public class ResourceBookingController extends BaseController{
         }
     }
 
+    //Show pre form
     public void back(){
         view.setComponent(preView);
     }
 
-    public boolean isValid()
+    //Validate inputted data
+    private boolean isValid()
     {
-        //result = Validator.checkEmpty(paramList);
+        Hashtable ht = new Hashtable();
+        ht.put(DataConstant.FieldName.REQUESTING_DATE, view.getTxtRequestingDate());
+        ht.put(DataConstant.FieldName.RETURN_DATE, view.getTxtReturnDate());
+        ht.put(DataConstant.FieldName.PURPOSE, view.getTxtPurpose());
+
+        result = Validator.checkEmpty(ht);
+
+        if (result.getResult())
+        {
+            result = Validator.checkDateFormat(view.getTxtRequestingDate());
+
+            if (result.getResult()) result = Validator.checkDateFormat(view.getTxtReturnDate());
+
+        }
+
+        if (!result.getResult()){
+            view.showWarningMessage(result.getMessage());
+            return false;
+        }
+
         return true;
     }
 }

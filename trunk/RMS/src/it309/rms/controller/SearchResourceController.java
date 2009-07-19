@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is a class to receive the delegation of SearchResourceView.
+ * This class is responsible for processing application logic
+ * and call funtions of business classes.
  */
 
 package it309.rms.controller;
@@ -32,7 +33,8 @@ public class SearchResourceController {
     public SearchResourceController(SearchResourceView view){
         this.view = view;
     }
-    
+
+    //Initiation of View
     public void init()
     {
         if (!(Util.isNullOrEmpty(searchField) && Util.isNullOrEmpty(searchCondition)))
@@ -42,6 +44,7 @@ public class SearchResourceController {
         }
     }
 
+    //Process of searching resource.
     public void search(){
         try{
             //Save search condition
@@ -69,14 +72,26 @@ public class SearchResourceController {
         }
     }
 
+    //Show form for process of booking
     public void book(){
         if (isValid())
         {
-            ResourceBookingView bookingView = new ResourceBookingView(view.selectedId(), view);
-            view.setComponent(bookingView);
+            if (view.selectedStatus().equals(DataConstant.ResourceStatus.BOOKED) ||
+                    view.selectedStatus().equals(DataConstant.ResourceStatus.APPROVED) ||
+                    view.selectedStatus().equals(DataConstant.ResourceStatus.DAMAGED) ||
+                    view.selectedStatus().equals(DataConstant.ResourceStatus.MAINTAINANCE))
+            {
+                view.showInformMessage(DataConstant.Message.UNAVAILABLE_RESOURCE);
+            }
+            else
+            {
+                ResourceBookingView bookingView = new ResourceBookingView(view.selectedId(), view);
+                view.setComponent(bookingView);
+            }
         }
     }
 
+    //Show form for process of evaluation
     public void evaluate(){
         if (isValid())
         {
@@ -85,6 +100,7 @@ public class SearchResourceController {
         }
     }
 
+    //Show resource detail form
     public void view(){
         if (isValid())
         {
@@ -93,6 +109,7 @@ public class SearchResourceController {
         }
     }
 
+    //Get search field condition base on the object selected by user.
     private String getSearchFieldCondition()
     {
         String field = DataConstant.Entity.ID;
@@ -113,16 +130,19 @@ public class SearchResourceController {
         return field;
     }
 
+    //Pass pre-search condition to view.
     private void setPreSearchCondition()
     {
         view.setCboSearch(searchField);
         view.setTxtSearch(searchCondition);
     }
 
+    //Pass result list to view for display.
     private void showSearchResult(Collection list){
         view.setTableResources(list);
     }
 
+    //Validate data inputted.
     private boolean isValid(){
         if(Util.isNullOrEmpty(view.selectedId()))
         {
