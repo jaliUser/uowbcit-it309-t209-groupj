@@ -11,6 +11,7 @@ package it309.rms.test;
  */
 import it309.rms.dao.EmployeeDao;
 import it309.rms.dataclass.EmployeeInfo;
+import it309.rms.dataclass.ResultInfo;
 import it309.rms.dataclass.UserIdInfo;
 
 public class EmployeeDAOcheckExist {
@@ -32,10 +33,15 @@ public class EmployeeDAOcheckExist {
 
         //to test whether add employee function in Employee DAO works properly
         try
-        {
-                empDao.add(emp);
-                empDao.checkExist(uid);
-                System.out.println("User existed : "+uid.getId());
+        {                
+                ResultInfo ri = empDao.checkExist(uid);
+                if (ri.getResult())
+                {
+                    System.out.println("User existed : "+uid.getId());
+                } else {
+                    System.out.println("Not existed user: "+uid.getId());
+                    empDao.add(emp);
+                }
         }
         catch(Exception ex)
         {
