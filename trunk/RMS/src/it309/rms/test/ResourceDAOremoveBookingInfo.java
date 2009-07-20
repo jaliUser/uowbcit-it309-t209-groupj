@@ -9,35 +9,29 @@ import it309.rms.dao.ResourceDao;
 import it309.rms.dataclass.ResourceInfo;
 import it309.rms.dataclass.ResultInfo;
 import it309.rms.dataclass.UserIdInfo;
-
 /**
  *
  * @author DucQuang
  */
-public class ResourceDAOupdateBookingInfo {
+public class ResourceDAOremoveBookingInfo {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        UserIdInfo uid = new UserIdInfo("khang", null);
+    public static void main(String[] args) {        
         ResourceInfo rsi = new ResourceInfo();
-        rsi.setResourceId("RS001");
-        rsi.setAuthorIdInfo(uid);
-        rsi.setDate_required(java.sql.Date.valueOf("2009-07-18"));
-        rsi.setDate_return(java.sql.Date.valueOf("2009-07-31"));
-        rsi.setPurpose("Project A");
+        rsi.setResourceId("RS001");        
         ResourceDao resDao = ResourceDao.getInstance();
-        
+
         try
         {
             //to test whether update booking info function in Resource DAO works properly
-            ResultInfo ri = resDao.updateBookingInfo(rsi);
+            ResultInfo ri = resDao.removeBookingInformation(rsi);
             if (ri.getResult())
             {
-                System.out.println("Book resource success : "+rsi.getResourceId());
+                System.out.println("Remove booking resource success : "+rsi.getResourceId());
             } else {
-                System.out.println("Book resource failed. ");
+                System.out.println("Remove booking resource failed. ");
             }
         }
         catch(Exception ex)
