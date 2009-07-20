@@ -34,7 +34,7 @@ public class ResourceDAOupdateEvaluatingInfo {
             {
                 System.out.println("Update evaluating success : "+rsi.getResourceId());
             } else {
-                System.out.println("Update evaluating fail ");
+                System.out.println("Update evaluating failed. ");
             }
         }
         catch(Exception ex)

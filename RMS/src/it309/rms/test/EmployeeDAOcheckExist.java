@@ -4,16 +4,14 @@
  */
 
 package it309.rms.test;
-
-/**
- *
- * @author DucQuang
- */
 import it309.rms.dao.EmployeeDao;
 import it309.rms.dataclass.EmployeeInfo;
 import it309.rms.dataclass.ResultInfo;
 import it309.rms.dataclass.UserIdInfo;
-
+/**
+ *
+ * @author DucQuang
+ */
 public class EmployeeDAOcheckExist {
 
     /**
@@ -31,7 +29,7 @@ public class EmployeeDAOcheckExist {
         UserIdInfo uid = new UserIdInfo("TestcheckExist","TestPass");
         EmployeeDao empDao = EmployeeDao.getInstance();
 
-        //to test whether add employee function in Employee DAO works properly
+        //to test whether check exist employee function in Employee DAO works properly
         try
         {                
                 ResultInfo ri = empDao.checkExist(uid);
