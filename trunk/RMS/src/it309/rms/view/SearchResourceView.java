@@ -8,6 +8,7 @@ package it309.rms.view;
 
 import it309.rms.controller.SearchResourceController;
 import it309.rms.dataclass.ResourceInfo;
+import java.awt.event.KeyEvent;
 import java.util.Collection;
 import javax.swing.table.DefaultTableModel;
 
@@ -48,6 +49,12 @@ public class SearchResourceView extends BaseView {
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchKeyPressed(evt);
+            }
+        });
+
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,7 +88,7 @@ public class SearchResourceView extends BaseView {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnValidate.setText("Validate");
+        btnValidate.setText("Evaluate");
         btnValidate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnValidateActionPerformed(evt);
@@ -181,6 +188,13 @@ public class SearchResourceView extends BaseView {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         controller.search();
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            btnSearchActionPerformed(null);
+        }
+    }//GEN-LAST:event_txtSearchKeyPressed
                         
     public String selectedId(){
 

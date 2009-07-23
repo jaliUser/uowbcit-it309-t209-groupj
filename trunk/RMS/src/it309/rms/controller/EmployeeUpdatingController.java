@@ -154,6 +154,6 @@ public class EmployeeUpdatingController extends BaseController {
 
     //Show pre form
     public void back(){
-        view.setDefaultAdminComponent();
+        view.setComponent(preView);
     }
 }

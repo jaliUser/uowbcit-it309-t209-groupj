@@ -1,1 +1,1 @@
-java -jar ".\dist\RMS.jar"
+java -classpath build\classes;jar\hsqldb.jar it309.rms.view.Main
