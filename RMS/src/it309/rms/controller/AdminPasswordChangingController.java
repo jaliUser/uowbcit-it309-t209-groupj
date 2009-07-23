@@ -62,7 +62,7 @@ public class AdminPasswordChangingController extends BaseController {
         result = Validator.checkEmpty(ht);
 
         if (result.getResult()){
-            result = Validator.checkConfirmPassword(view.getTxtOldPassword(), view.getTxtConfirmPassword());
+            result = Validator.checkConfirmPassword(view.getTxtNewPassword(), view.getTxtConfirmPassword());
         }
 
         if (!result.getResult()){

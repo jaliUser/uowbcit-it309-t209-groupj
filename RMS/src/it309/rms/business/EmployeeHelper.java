@@ -69,8 +69,20 @@ public class EmployeeHelper{
         ResultInfo resultInfo = null;
         try
         {
+            EmployeeInfo employeeInfoTmp = new EmployeeInfo();
+            resultInfo = EmployeeDao.getInstance().getEmployeeInfo(employeeInfo.getId(), employeeInfoTmp);
 
-            resultInfo =  EmployeeDao.getInstance().add(employeeInfo);
+            if (resultInfo.getResult())
+            {
+                resultInfo.setResult(false);
+                resultInfo.setMessage(DataConstant.Message.EMPLOYEE_EXISTS);
+            }
+            else
+            {
+                resultInfo =  EmployeeDao.getInstance().add(employeeInfo);
+            }
+
+            
 
         }
         catch (EmployeeException e)

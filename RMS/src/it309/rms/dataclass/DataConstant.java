@@ -47,6 +47,8 @@ public class DataConstant {
 
         public final static String UNAVAILABLE_RESOURCE = "The selected resource is now unavailable. Pls book functioning resources.";
 
+        public final static String EMPLOYEE_EXISTS = "The Employee Id exists, please choose another.";
+
     }
 
     //Fields which are used in validation to inform user which exactly field is illegal.

@@ -8,6 +8,7 @@ package it309.rms.view;
 
 import it309.rms.controller.SearchEmployeeController;
 import it309.rms.dataclass.EmployeeInfo;
+import java.awt.event.KeyEvent;
 import java.util.Collection;
 import javax.swing.table.DefaultTableModel;
 
@@ -46,6 +47,12 @@ public class SearchEmployeeView extends BaseView {
         jLabel3 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchKeyPressed(evt);
+            }
+        });
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -165,6 +172,13 @@ public class SearchEmployeeView extends BaseView {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         controller.searchEmployee();
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            btnSearchActionPerformed(null);
+        }
+    }//GEN-LAST:event_txtSearchKeyPressed
 
        
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,7 +6,7 @@
 	<property environment="envi"/>
 	<property name="package.name" value="it309.rms"/>
 	<property name="source.dir" value="${basedir}/src"/>
-	<property name="jar.dir" value="${basedir}/jar"/>
+	<property name="jar.dir" value="${basedir}/dist"/>
 	<property name="build.dir" value="${basedir}/build"/>
 	<property name="javadoc.dir" value="${basedir}/doc"/>
 	<property name="classes.dir" value="${build.dir}/classes"/>
@@ -24,6 +24,7 @@
 	<target name="prepare">
 		<mkdir dir="${build.dir}"/>
 		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${jar.dir}"/>
 		<echo>finish prepare-task for ${ant.project.name}</echo>
 	</target>
 	
@@ -143,6 +144,7 @@
 	<target name="clean">
 		<delete dir="${build.dir}"/>
 		<delete dir="${javadoc.dir}"/>
+		<delete dir="${jar.dir}"/>
 		<delete file="${jar.name}"/>
 		<echo>finish clean task for ${ant.project.name}</echo>
 	</target>
